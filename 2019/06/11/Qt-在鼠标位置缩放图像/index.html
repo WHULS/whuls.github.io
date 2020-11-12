@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/blog/03_16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/blog/03_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/blog/03_16x16.png">
+  <link rel="mask-icon" href="/images/blog/03_16x16.png" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"whuls.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="使用QT显示图像，并通过绑定QGraphicsView的事件实现在鼠标位置处缩放图像的操作；进行了一系列数学公式的推导；但是效果并不是太好，缩放速度取决于图像大小和缩放的程度，有待优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Qt 在鼠标位置缩放图像">
+<meta property="og:url" content="https://whuls.github.io/2019/06/11/Qt-%E5%9C%A8%E9%BC%A0%E6%A0%87%E4%BD%8D%E7%BD%AE%E7%BC%A9%E6%94%BE%E5%9B%BE%E5%83%8F/index.html">
+<meta property="og:site_name" content="林杉的个人博客">
+<meta property="og:description" content="使用QT显示图像，并通过绑定QGraphicsView的事件实现在鼠标位置处缩放图像的操作；进行了一系列数学公式的推导；但是效果并不是太好，缩放速度取决于图像大小和缩放的程度，有待优化">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-06-11T08:43:18.000Z">
+<meta property="article:modified_time" content="2020-10-30T11:19:24.416Z">
+<meta property="article:author" content="林杉">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="Qt">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://whuls.github.io/2019/06/11/Qt-%E5%9C%A8%E9%BC%A0%E6%A0%87%E4%BD%8D%E7%BD%AE%E7%BC%A9%E6%94%BE%E5%9B%BE%E5%83%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Qt 在鼠标位置缩放图像 | 林杉的个人博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+    <a href="https://github.com/whuls" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">林杉的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">61</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">19</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">53</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://whuls.github.io/2019/06/11/Qt-%E5%9C%A8%E9%BC%A0%E6%A0%87%E4%BD%8D%E7%BD%AE%E7%BC%A9%E6%94%BE%E5%9B%BE%E5%83%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/blog/avatar_136x136.png">
+      <meta itemprop="name" content="林杉">
+      <meta itemprop="description" content="开发记录 & 思考笔记">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="林杉的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Qt 在鼠标位置缩放图像
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-06-11 16:43:18" itemprop="dateCreated datePublished" datetime="2019-06-11T16:43:18+08:00">2019-06-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-30 19:19:24" itemprop="dateModified" datetime="2020-10-30T19:19:24+08:00">2020-10-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ol class="post-body-toc"><li class="post-body-toc-item post-body-toc-level-1"><a class="post-body-toc-link" href="#问题描述"><span class="post-body-toc-text">问题描述</span></a></li><li class="post-body-toc-item post-body-toc-level-1"><a class="post-body-toc-link" href="#解决方案"><span class="post-body-toc-text">解决方案</span></a><ol class="post-body-toc-child"><li class="post-body-toc-item post-body-toc-level-2"><a class="post-body-toc-link" href="#1-自定义GraphicsView类"><span class="post-body-toc-text">1. 自定义GraphicsView类</span></a></li><li class="post-body-toc-item post-body-toc-level-2"><a class="post-body-toc-link" href="#2-记录鼠标位置"><span class="post-body-toc-text">2. 记录鼠标位置</span></a></li><li class="post-body-toc-item post-body-toc-level-2"><a class="post-body-toc-link" href="#3-图像缩放"><span class="post-body-toc-text">3. 图像缩放</span></a></li></ol></li></ol>
+      
+      
+        <h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>使用Qt的<code>QGraphicsView</code>显示图像时，鼠标滚轮的动作由其自带的<code>wheelEvent</code>事件控制。滚动滚轮可以控制图像上下移动。</p>
+<p>现希望通过滚动滚轮实现图像缩放，且缩放的中心为鼠标所在位置。</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><h2 id="1-自定义GraphicsView类"><a href="#1-自定义GraphicsView类" class="headerlink" title="1. 自定义GraphicsView类"></a>1. 自定义<code>GraphicsView</code>类</h2><p><code>HighGraphicsView</code>类继承自<code>QGraphicsView</code>类，重写了<code>wheelEvent</code>和<code>mouseMoveEvent</code>两个事件。其中，对<code>mouseMoveEvent</code>，在原有的基础上加入了触发鼠标位置变化的事件，这个鼠标位置是相对于<code>View</code>的<code>(x,y)</code>坐标。对<code>wheelEvent</code>，放弃原有事件，记录滚动间隔，发送信号。</p>
+<p>HighGraphicsView.h</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> once</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;qgraphicsview.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QMouseEvent&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QWheelEvent&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;QScrollBar&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HighGraphicsView</span> :</span></span><br><span class="line">    <span class="keyword">public</span> QGraphicsView</span><br><span class="line">&#123;</span><br><span class="line">    Q_OBJECT</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    HighGraphicsView(QWidget *parent = <span class="literal">nullptr</span>);</span><br><span class="line">    ~HighGraphicsView();</span><br><span class="line"></span><br><span class="line">signals:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">mousePositionChanged</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">wheelScrollChanged</span><span class="params">(<span class="keyword">int</span> <span class="built_in">step</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">wheelEvent</span><span class="params">(QWheelEvent *event)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">mouseMoveEvent</span><span class="params">(QMouseEvent *event)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="comment">// Mouse Position</span></span><br><span class="line">    <span class="keyword">int</span> x, y;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>HighGraphicsView.cpp</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"HighGraphicsView.h"</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">HighGraphicsView::HighGraphicsView(QWidget *parent)</span><br><span class="line">    :QGraphicsView(parent)</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">HighGraphicsView::~HighGraphicsView()</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HighGraphicsView::wheelEvent</span><span class="params">(QWheelEvent *event)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    QPoint numPixels, numDegrees;</span><br><span class="line">    numPixels = event-&gt;pixelDelta();</span><br><span class="line">    numDegrees = event-&gt;angleDelta() / <span class="number">8</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">step</span> = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (!numPixels.isNull())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">step</span> = numPixels.y();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (!numDegrees.isNull())</span><br><span class="line">    &#123;</span><br><span class="line">        QPoint numSteps = numDegrees / <span class="number">15</span>;</span><br><span class="line">        <span class="built_in">step</span> = numSteps.y();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Enlarge: +; Shrink: -</span></span><br><span class="line">    <span class="function">emit <span class="title">wheelScrollChanged</span><span class="params">(<span class="built_in">step</span>)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HighGraphicsView::mouseMoveEvent</span><span class="params">(QMouseEvent *event)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    QGraphicsView::mouseMoveEvent(event);</span><br><span class="line"></span><br><span class="line">    x = event-&gt;x();</span><br><span class="line">    y = event-&gt;y();</span><br><span class="line"></span><br><span class="line">    <span class="function">emit <span class="title">mousePositionChanged</span><span class="params">(x, y)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="2-记录鼠标位置"><a href="#2-记录鼠标位置" class="headerlink" title="2. 记录鼠标位置"></a>2. 记录鼠标位置</h2><p>鼠标的位置包括三类：</p>
+<ol>
+<li>图像上的位置；</li>
+</ol>
+<script type="math/tex; mode=display">
+(x_0,y_0)</script><ol>
+<li><code>View</code>中的位置；</li>
+</ol>
+<script type="math/tex; mode=display">
+(x,y)</script><ol>
+<li><code>Scene</code>中的位置；</li>
+</ol>
+<script type="math/tex; mode=display">
+(X,Y)</script><p>其对应的转换关系如下所示：</p>
+<script type="math/tex; mode=display">
+x_0 = X * scaleX</script><script type="math/tex; mode=display">
+y_0 = Y * scaleY</script><script type="math/tex; mode=display">
+X = x + horizontal = x + h</script><script type="math/tex; mode=display">
+Y = y + vertical = y + v</script><p>其中，$horizontal$是<code>View-&gt;horizontalScrollBar()-&gt;value()</code>的值，$vertical$是<code>View-&gt;verticalScrollBar()-&gt;value()</code>的值，$scaleX, scaleY$是当前图像$x,y$方向上的缩放比例，其表达式为：</p>
+<script type="math/tex; mode=display">
+scaleX = \frac{Width}{currentWidth}</script><script type="math/tex; mode=display">
+scaleY = \frac{Height}{currentHeight}</script><p>在引用<code>HighGraphicsView</code>的类中，存储两类鼠标位置$(x_0,y_0), (x,y)$：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Mouse Position</span></span><br><span class="line"><span class="keyword">int</span> x, y;         <span class="comment">// x0,y0</span></span><br><span class="line"><span class="keyword">int</span> viewX, viewY; <span class="comment">// x,y</span></span><br></pre></td></tr></table></figure>
+<p>创建槽<code>onMousePositionChanged</code>，用来接收<code>View</code>发出的<code>mousePositionChanged</code>信号</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">onMousePositionChanged</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    viewX = x;</span><br><span class="line">    viewY = y;</span><br><span class="line"></span><br><span class="line">    QRectF <span class="built_in">rect</span> = View-&gt;mapToScene(View-&gt;viewport()-&gt;geometry()).boundingRect();</span><br><span class="line">    x += <span class="keyword">int</span>(<span class="built_in">rect</span>.x() - <span class="number">1</span>); <span class="comment">// Rectangle begin with (1,1)</span></span><br><span class="line">    y += <span class="keyword">int</span>(<span class="built_in">rect</span>.y() - <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    x = <span class="keyword">int</span>(<span class="keyword">double</span>(x) * (<span class="keyword">double</span>(Width) / <span class="keyword">double</span>(currentWidth)));</span><br><span class="line">    y = <span class="keyword">int</span>(<span class="keyword">double</span>(y) * (<span class="keyword">double</span>(Height) / <span class="keyword">double</span>(currentHeight)));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>-&gt;x = x;</span><br><span class="line">    <span class="keyword">this</span>-&gt;y = y;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (x &gt;= Width || x &lt; <span class="number">0</span> || y &gt;= Height || y &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        ui.statusBar-&gt;showMessage(<span class="string">u8"Outside"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        ui.statusBar-&gt;showMessage(QString().<span class="built_in">sprintf</span>(<span class="string">u8"(x=%d, y=%d)"</span>, x, y));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>绑定信号与槽</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Receive (x,y) coordinate</span></span><br><span class="line"><span class="built_in">connect</span>(View, SIGNAL(mousePositionChanged(<span class="keyword">int</span>, <span class="keyword">int</span>)), <span class="keyword">this</span>, SLOT(onMousePositionChanged(<span class="keyword">int</span>, <span class="keyword">int</span>)));</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="3-图像缩放"><a href="#3-图像缩放" class="headerlink" title="3. 图像缩放"></a>3. 图像缩放</h2><p>要以鼠标为中心进行图像缩放，可以分为两个步骤进行：1. 缩放；2. 平移。缩放过程较为简单，只需要根据比例对原图进行缩放即可。平移的目的是为了使图像在缩放前后鼠标所在的位置相对于图像不变、相对于视窗（<code>View</code>）不变，不变量为$(x,y)$、$ (x_0, y_0)$。</p>
+<p>根据$(x,y), (x_0,y_0), (X,Y)$之间的关系（见第1小节），可以得到</p>
+<script type="math/tex; mode=display">
+x_0 = X * scaleX = \frac{(x + h) * Width}{currentWidth}</script><script type="math/tex; mode=display">
+y_0 = Y * scaleY = \frac{(y + v) * Height}{currentHeight}</script><p>由于$(x,y)$、$(x_0, y_0)$是不变量，因此可以得到变化量$h,v$的值，即<code>View</code>相对于<code>Scene</code>的偏移量：</p>
+<script type="math/tex; mode=display">
+h = \frac{x_0 * currentWidth}{Width} - x</script><script type="math/tex; mode=display">
+v = \frac{y_0 * currentHeight}{Height} - y</script><p>通过<code>View-&gt;horizontalScrollBar()-&gt;setValue()</code>和<code>View-&gt;verticalScrollBar()-&gt;setValue()</code>设置偏移量，完成平移。</p>
+<p>创建响应滚轮变化信号的槽：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">onWheelScrollChanged</span><span class="params">(<span class="keyword">int</span> <span class="built_in">step</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    currentHeight += currentHeight / <span class="number">20</span> * <span class="built_in">step</span>;</span><br><span class="line">    currentWidth += currentWidth / <span class="number">20</span> * <span class="built_in">step</span>;</span><br><span class="line">    ImageItem-&gt;setPixmap(QPixmap::fromImage(Image.scaled(currentWidth, currentHeight)));</span><br><span class="line"></span><br><span class="line">    Scene = <span class="keyword">new</span> QGraphicsScene(<span class="keyword">this</span>);</span><br><span class="line">    Scene-&gt;addItem(ImageItem);</span><br><span class="line">    View-&gt;setScene(Scene);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> horizontal, vertical;</span><br><span class="line">    horizontal = <span class="keyword">int</span>(<span class="keyword">double</span>(x * currentWidth) / <span class="keyword">double</span>(Width) - viewX);</span><br><span class="line">    vertical = <span class="keyword">int</span>(<span class="keyword">double</span>(y * currentHeight) / <span class="keyword">double</span>(Height) - viewY);</span><br><span class="line"></span><br><span class="line">    View-&gt;horizontalScrollBar()-&gt;setValue(horizontal);</span><br><span class="line">    View-&gt;verticalScrollBar()-&gt;setValue(vertical);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>绑定信号与槽</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Receive wheel scroll signal</span></span><br><span class="line"><span class="built_in">connect</span>(View, SIGNAL(wheelScrollChanged(<span class="keyword">int</span>)), <span class="keyword">this</span>, SLOT(onWheelScrollChanged(<span class="keyword">int</span>)));</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"><i class="fa fa-tag"></i> C++</a>
+              <a href="/tags/Qt/" rel="tag"><i class="fa fa-tag"></i> Qt</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/03/01/Git-%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" rel="prev" title="Git 常用操作">
+      <i class="fa fa-chevron-left"></i> Git 常用操作
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/06/14/%E4%BD%BF%E7%94%A8Vue-CLI-3%E5%92%8Col5%E6%90%AD%E5%BB%BA%E5%9F%BA%E7%A1%80%E5%9C%B0%E5%9B%BE%E9%A1%B5%E9%9D%A2/" rel="next" title="使用Vue CLI 3和ol5搭建基础地图页面">
+      使用Vue CLI 3和ol5搭建基础地图页面 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题描述"><span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决方案"><span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-自定义GraphicsView类"><span class="nav-text">1. 自定义GraphicsView类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-记录鼠标位置"><span class="nav-text">2. 记录鼠标位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-图像缩放"><span class="nav-text">3. 图像缩放</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="林杉"
+      src="/images/blog/avatar_136x136.png">
+  <p class="site-author-name" itemprop="name">林杉</p>
+  <div class="site-description" itemprop="description">开发记录 & 思考笔记</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">林杉</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">188k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">2:51</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '77edc458d1e975c91584',
+      clientSecret: 'd066ea784ad9a8840650ce87154372d890562ecc',
+      repo        : 'whuls.github.io',
+      owner       : 'WHULS',
+      admin       : ['WHULS'],
+      id          : 'b00fb0bf9f0e586282473794f80bae8d',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>
