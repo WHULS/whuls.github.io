@@ -4222,4 +4222,52 @@ e_i=\frac{d_i}{I_i}</script><p>其中，$d_i$是种子点$i$到直线的距离�
         <tag>Darknet</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Anaconda原理探究与环境操作指南</title>
+    <url>/2020/12/11/Anaconda%E5%8E%9F%E7%90%86%E6%8E%A2%E7%A9%B6%E4%B8%8E%E7%8E%AF%E5%A2%83%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97/</url>
+    <content><![CDATA[<h1 id="环境操作"><a href="#环境操作" class="headerlink" title="环境操作"></a>环境操作</h1><h2 id="添加环境"><a href="#添加环境" class="headerlink" title="添加环境"></a>添加环境</h2><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">conda create <span class="literal">-n</span> py35 python=<span class="number">3.5</span> anaconda</span><br></pre></td></tr></table></figure>
+<p><code>-n</code>指定环境名，<code>python=</code>指定python版本，<code>python=3.5</code>+<code>anaconda</code>表示该环境中要安装或更新的包。</p>
+<blockquote>
+<p><a href="https://docs.conda.io/projects/conda/en/latest/commands/create.html" target="_blank" rel="noopener">https://docs.conda.io/projects/conda/en/latest/commands/create.html</a></p>
+</blockquote>
+<h2 id="查看环境"><a href="#查看环境" class="headerlink" title="查看环境"></a>查看环境</h2><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">conda env list</span><br><span class="line">conda info -<span class="literal">-env</span></span><br></pre></td></tr></table></figure>
+<h2 id="修改环境中的python版本"><a href="#修改环境中的python版本" class="headerlink" title="修改环境中的python版本"></a>修改环境中的python版本</h2><p>会替换掉原来的python.exe（在base环境中无法替换）。</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">conda install python=<span class="number">3.6</span></span><br></pre></td></tr></table></figure>
+<h2 id="复制环境"><a href="#复制环境" class="headerlink" title="复制环境"></a>复制环境</h2><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">conda create <span class="literal">-n</span> new_env -<span class="literal">-clone</span> old_env</span><br></pre></td></tr></table></figure>
+<h2 id="删除环境"><a href="#删除环境" class="headerlink" title="删除环境"></a>删除环境</h2><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">conda remove <span class="literal">-n</span> py35 -<span class="literal">-all</span></span><br></pre></td></tr></table></figure>
+<h2 id="重命名"><a href="#重命名" class="headerlink" title="重命名"></a>重命名</h2><p>先复制，再删除</p>
+<h2 id="激活和退出环境"><a href="#激活和退出环境" class="headerlink" title="激活和退出环境"></a>激活和退出环境</h2><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">conda active py35</span><br><span class="line">conda deactive py35</span><br></pre></td></tr></table></figure>
+<h1 id="Anaconda文件夹及其原理说明"><a href="#Anaconda文件夹及其原理说明" class="headerlink" title="Anaconda文件夹及其原理说明"></a>Anaconda文件夹及其原理说明</h1><p>安装Anaconda时，选用的python版本是3.8，Anaconda的安装路径为<code>D:\Anaconda\anaconda3</code>，python.exe作为默认环境base的解译器，保存在该目录下。</p>
+<p>所有的包安装在<code>pkgs</code>文件夹下（Anaconda安装目录总的10.1个G，pkgs文件夹占了5.63G），不同版本用文件夹名称区分（如下图）。</p>
+<p><img src="/images/image-20201211185356457.png" alt="image-20201211185356457" style="zoom:50%;" /></p>
+<h2 id="python-exe在哪？pip在哪？"><a href="#python-exe在哪？pip在哪？" class="headerlink" title="python.exe在哪？pip在哪？"></a>python.exe在哪？pip在哪？</h2><p>默认环境base的python.exe在Anaconda的安装目录下（pip在路径<code>Scripts</code>下），不同环境下的python.exe在<code>envs/环境名/</code>目录下。如果你的电脑上本身安装了一个python（已经将其目录添加到环境变量<code>path</code>中），某个环境（base或者自建的）需要的python版本刚好和电脑上自带的版本一致，则不会在环境目录下安装python.exe，而是索引到电脑上已有的那个python文件夹去。</p>
+<h2 id="创建环境的时候怎么搜索已有的python？顺序是怎样的？找不到又要怎么办？"><a href="#创建环境的时候怎么搜索已有的python？顺序是怎样的？找不到又要怎么办？" class="headerlink" title="创建环境的时候怎么搜索已有的python？顺序是怎样的？找不到又要怎么办？"></a>创建环境的时候怎么搜索已有的python？顺序是怎样的？找不到又要怎么办？</h2><p>创建环境（包括安装Anaconda时自动创建的base环境）时，Anaconda心里面已经想好了要安装的python版本，然后这时候开始搜索环境变量<code>path</code>，如果找到了对应的版本，就会把python的安装路径保存下来，不会额外安装python。</p>
+<p>如果找遍了环境变量发现没有python，则开始从网上下载安装，安装的位置就在环境所在的目录下（base环境的目录就是Anaconda的安装目录，其他环境的目录位于<code>envs/环境名/</code>）</p>
+<h2 id="激活不同环境后使用python和pip有什么区别？"><a href="#激活不同环境后使用python和pip有什么区别？" class="headerlink" title="激活不同环境后使用python和pip有什么区别？"></a>激活不同环境后使用python和pip有什么区别？</h2><p>打开<code>Anaconda Prompt</code>，输入<code>python -V</code>和<code>pip -V</code>，结果如下。可以看出，由于之前我们指定python版本号为3.5创建了一个环境py35，当切换到这个环境后使用python和pip，发现其路径是<code>Anaconda安装路径\envs\py35</code>；切回到base环境，发现路径就是Anaconda安装路径。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">(py35) C:\Users\whuls&gt;python -V</span><br><span class="line">Python 3.5.5 :: Anaconda, Inc.</span><br><span class="line"></span><br><span class="line">(py35) C:\Users\whuls&gt;pip -V</span><br><span class="line">pip 10.0.1 from D:\Anaconda\anaconda3\envs\py35\lib\site-packages\pip (python 3.5)</span><br><span class="line"></span><br><span class="line">(py35) PS C:\Users\whuls&gt; conda env list</span><br><span class="line"><span class="meta">#</span><span class="bash"> conda environments:</span></span><br><span class="line"><span class="meta">#</span></span><br><span class="line">base                     D:\Anaconda\anaconda3</span><br><span class="line">py35                  *  D:\Anaconda\anaconda3\envs\py35</span><br><span class="line"></span><br><span class="line">(py35) PS C:\Users\whuls&gt; conda activate base</span><br><span class="line">(base) PS C:\Users\whuls&gt; python -V</span><br><span class="line">Python 3.8.3</span><br><span class="line">(base) PS C:\Users\whuls&gt; pip -V</span><br><span class="line">pip 20.1.1 from D:\Anaconda\anaconda3\lib\site-packages\pip (python 3.8)</span><br></pre></td></tr></table></figure>
+<p>这时候我们创建一个新的环境，命名为test（<code>conda create -n test</code>，不指定python版本），然后切换到这个环境下，运行<code>python -V</code>和<code>pip -V</code>，结果如下。可以看出，创建环境时，Anaconda搜索了环境变量<code>path</code>的值，发现了在我电脑的<code>D:\python37</code>存在一个可用的python版本，于是就把这个python拿来，作为新环境的python解译器（我愿称之为“省流大师”）。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">(base) PS C:\Users\whuls&gt; conda activate test</span><br><span class="line">(test) PS C:\Users\whuls&gt; python -V</span><br><span class="line">Python 3.7.4</span><br><span class="line">(test) PS C:\Users\whuls&gt; pip -V</span><br><span class="line">pip 20.2.3 from d:\python37\lib\site-packages\pip (python 3.7)</span><br></pre></td></tr></table></figure>
+<p>还有一个很有意思的现象，如果把环境变量<code>path</code>中的python路径删掉，使用<code>conda create -n 环境名</code>创建环境并激活后，<strong>无法找到python和pip</strong>，看来如果不指定python，conda默认不设置python，全凭环境变量处置。</p>
+<blockquote>
+<p>Anaconda不建议将其安装目录添加到环境变量中，而如果电脑上也不愿意暴露出python的路径，避免pip安装混乱，则必须在创建环境时指定python版本号（如果不指定，使用<code>conda create -n name python</code>，会安装最新的python）。官方对create命令的参数有如下说明。（<a href="https://docs.conda.io/projects/conda/en/latest/commands/create.html" target="_blank" rel="noopener">完整参数</a>）</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">conda create [-<span class="type">n</span> <span class="type">ENVIRONMENT</span> | -<span class="type">p</span> <span class="type">PATH</span>] [<span class="type">package_spec</span> [<span class="type">package_spec</span> <span class="type">...</span>]]</span><br></pre></td></tr></table></figure>
+<p>参数<code>python=3.8</code>或<code>python</code>或<code>anaconda</code>，都是<code>package_spec</code>，也就是要加到<code>envs/环境名/</code>下的包内容，如果省去了这个参数，直接<code>conda create -n 环境名</code>，则不会添加任何包，和普通的powershell没啥区别（只有用到<code>conda install</code>才会有所区别，但因为conda无法安装gluoncv，所以不用它）。</p>
+</blockquote>
+<h2 id="直接在Powershell中使用python和pip和在conda中使用有什么区别？"><a href="#直接在Powershell中使用python和pip和在conda中使用有什么区别？" class="headerlink" title="直接在Powershell中使用python和pip和在conda中使用有什么区别？"></a>直接在Powershell中使用python和pip和在conda中使用有什么区别？</h2><p>conda作为一个python版本管理工具，允许用户在不同环境下自由切换使用的python版本。如果在powershell中使用python，使用的是Windows环境变量<code>path</code>记录的<strong>第一个</strong>python路径下的python和pip，这里假设该路径为<code>D:\Python37\</code>。使用<code>pip install</code>命令安装的所有东西都会存放在同一个路径下的<code>Scripts</code>文件夹中（<code>D:\Python37\Scripts</code>）。</p>
+<p>那么问题来了，有些代码对python的版本有要求，比如某些较老的代码需要python2.x；而有些代码必须在python3.5版本下运行，在python3.6或以上的版本运行就会报错。虽然可以将所有版本的python路径都添加到Windows的环境变量<code>path</code>中，但是在命令行或powershell中调用时，只会运行<code>path</code>中记录的第一个python，这就无法做到自由调用不同版本。</p>
+<p>而在conda中，可以为一个环境指定一个python版本，不同版本的python保存在不同的路径下，由Anaconda统一管理路径，用户只需要切换环境就可以实现不同python版本的调用。</p>
+<h1 id="Conda设置代理"><a href="#Conda设置代理" class="headerlink" title="Conda设置代理"></a>Conda设置代理</h1><blockquote>
+<p><a href="https://blog.csdn.net/tianshixingyu/article/details/80239317" target="_blank" rel="noopener">https://blog.csdn.net/tianshixingyu/article/details/80239317</a></p>
+</blockquote>
+<p>在<code>C:\Users\xxx\</code>下找到<code>.condarc</code>，添加代理服务器地址。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">proxy_servers:</span><br><span class="line">    http: http:&#x2F;&#x2F;proxy.yourorg.org:port</span><br><span class="line">    https: http:&#x2F;&#x2F;proxy.yourorg.org:port</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Anaconda</tag>
+      </tags>
+  </entry>
 </search>
