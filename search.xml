@@ -5195,4 +5195,128 @@ m^e\%N=c</script><p>其中，<script type="math/tex">m</script>是信息，<scri
         <tag>Python</tag>
       </tags>
   </entry>
+  <entry>
+    <title>日常记录2021.03.12</title>
+    <url>/2021/03/12/%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%952021-03-12/</url>
+    <content><![CDATA[<p>总算是早起一次了，在植树节的今天，值得纪念</p>
+<p>直接原因是今天有一节早八英语课，以及这学期连翘四次课心理上也过不去了哈哈哈，虽然上课很形式主义，但是偶尔去听听也还不错</p>
+<p>昨天看了一篇peer review的论文，这是我第一次当审稿人，令人诧异的是，这篇文章看下来毫无重点，做了一个建筑建模的实验，引用60多篇全放在introduction中了，所说的难点一个也没有克服，用到的校验方法看起来并不那么可靠，不得不佩服他们的勇气，写得比我本科毕设还烂的文章也敢投Remote Sensing。</p>
+<p>最近还是忙，除了科研的事情，还打算自己写一些小软件小系统，比如PDF阅读器，电商小程序，帮家里人写一些信息管理系统等等，也有好多新技术要学，任重而道远。</p>
+]]></content>
+      <categories>
+        <category>Daily</category>
+      </categories>
+      <tags>
+        <tag>Daily</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PyInstaller使用手记</title>
+    <url>/2021/03/21/PyInstaller%E4%BD%BF%E7%94%A8%E6%89%8B%E8%AE%B0/</url>
+    <content><![CDATA[<blockquote>
+<p>使用<a href="https://www.pyinstaller.org/" target="_blank" rel="noopener">PyInstaller</a>在Windows系统下打包了一个带有mxnet-gpu的项目，遇到了一些依赖库和静态文件的问题，记录一下使用过程和遇到的问题及解决方法</p>
+</blockquote>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>参考<a href="https://pyinstaller.readthedocs.io/en/stable/installation.html" target="_blank" rel="noopener">官方教程</a>，直接通过pip命令安装，我使用的是3.6版本的python，直接安装成功。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pip install pyinstaller</span><br></pre></td></tr></table></figure>
+<h1 id="将-py脚本打包为exe"><a href="#将-py脚本打包为exe" class="headerlink" title="将.py脚本打包为exe"></a>将.py脚本打包为exe</h1><p>输入命令</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pyinstaller main.py</span><br></pre></td></tr></table></figure>
+<p>就可以将<code>main.py</code>文件打包成一个.exe文件，位于命令执行目录的<code>./dist</code>文件夹下，同时会在当前目录中生成一个<code>./build</code>文件夹，存放构建时产生的临时文件，并且创建一个<code>./main.spec</code>文件，记录了本次打包的一些配置参数</p>
+<p>如果希望进行更多样的配置，可以通过参数来控制<code>pyinstaller</code>的行为。例如通过<code>--distpath</code>设置输出路径，<code>--onefile</code>设置生成单文件等</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pyinstaller main.py --distpath "./output"  # 设置生成目录</span><br><span class="line">pyinstaller main.py --onefile  # 仅生成一个exe文件</span><br></pre></td></tr></table></figure>
+<p>一些常用的命令参数及帮助说明如下表所示（<a href="https://pyinstaller.readthedocs.io/en/stable/usage.html" target="_blank" rel="noopener">官网</a>）：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>帮助说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-h, —help</td>
+<td>show this help message and exit</td>
+</tr>
+<tr>
+<td>-v, —version</td>
+<td>Show program version info and exit.</td>
+</tr>
+<tr>
+<td>—distpath DIR</td>
+<td><strong>Where to put the bundled app (default: ./dist)</strong></td>
+</tr>
+<tr>
+<td>—workpath WORKPATH</td>
+<td><strong>Where to put all the temporary work files, .log, .pyz and etc. (default: ./build)</strong></td>
+</tr>
+<tr>
+<td>-y, —noconfirm</td>
+<td>Replace output directory (default: SPECPATH/dist/SPECNAME) without asking for confirmation</td>
+</tr>
+<tr>
+<td>—upx-dir UPX_DIR</td>
+<td>Path to UPX utility (default: search the execution path)</td>
+</tr>
+<tr>
+<td>-a, —ascii</td>
+<td>Do not include unicode encoding support (default: included if available)</td>
+</tr>
+<tr>
+<td>—clean</td>
+<td>Clean PyInstaller cache and remove temporary files before building.</td>
+</tr>
+<tr>
+<td>—log-level LEVEL</td>
+<td>Amount of detail in build-time console messages. LEVEL may be one of TRACE, DEBUG, INFO, WARN, ERROR, CRITICAL (default: INFO).</td>
+</tr>
+<tr>
+<td>-D, —onedir</td>
+<td><strong>Create a one-folder bundle containing an executable (default)</strong></td>
+</tr>
+<tr>
+<td>-F, —onefile</td>
+<td>Create a one-file bundled executable.</td>
+</tr>
+<tr>
+<td>—specpath DIR</td>
+<td><strong>Folder to store the generated spec file (default: current directory)</strong></td>
+</tr>
+<tr>
+<td>-n NAME, —name NAME</td>
+<td>Name to assign to the bundled app and spec file (default: first script’s basename)</td>
+</tr>
+<tr>
+<td>—add-data <SRC;DEST or SRC:DEST></td>
+<td><strong>Additional non-binary files or folders to be added to the executable. The path separator is platform specific, <code>os.pathsep</code> (which is <code>;</code> on Windows and <code>:</code> on most unix systems) is used. This option can be used multiple times.</strong></td>
+</tr>
+<tr>
+<td>—add-binary <SRC;DEST or SRC:DEST></td>
+<td><strong>Additional binary files to be added to the executable. See the <code>--add-data</code> option for more details. This option can be used multiple times.</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="利用-spec文件导入静态资源-amp-动态链接库"><a href="#利用-spec文件导入静态资源-amp-动态链接库" class="headerlink" title="利用.spec文件导入静态资源&amp;动态链接库"></a>利用.spec文件导入静态资源&amp;动态链接库</h1><p>除了直接对.py文件打包之外，还可以直接根据.spec文件进行打包：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pyinstaller main.spec</span><br></pre></td></tr></table></figure>
+<p>该文件在运行<code>pyinstaller main.py</code>命令时自动创建</p>
+<p>存在一种情况，<code>pyinstaller</code>并不总能找到你在.py文件中<code>import</code>的包，例如，<code>mxnet</code>有CPU版本和GPU版本，GPU版本又是和CUDA对应的，如<code>mxnet-cu101</code>，在打包时其相关的dll文件并不能被找到并包含到生成的输出路径中，因此执行<code>main.exe</code>时会报错：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">RuntimeError: Cannot find the MXNet library.</span><br><span class="line">List of candidates:</span><br><span class="line">...省略...\mxnet\libmxnet.dll</span><br><span class="line">...省略...\mxnet\..&#x2F;..&#x2F;lib&#x2F;libmxnet.dll</span><br><span class="line">...省略...\mxnet\..&#x2F;..&#x2F;build&#x2F;libmxnet.dll</span><br><span class="line">...省略...\mxnet\..&#x2F;..&#x2F;build\libmxnet.dll</span><br><span class="line">...省略...\mxnet\..&#x2F;..&#x2F;build\Release\libmxnet.dll</span><br><span class="line">...省略...\mxnet\..&#x2F;..&#x2F;windows&#x2F;x64\Release\libmxnet.dll</span><br></pre></td></tr></table></figure>
+<p>此时需要手动把对应的dll文件加入到输出路径的指定文件夹下，找到所需的dll文件路径为<code>D:\Anaconda\anaconda3\envs\mxnet-gpu\Lib\site-packages\mxnet\libmxnet.dll</code>（也可以是相对路径），将其单斜杠改为双斜杠，通过<code>--add-binary</code>参数加入到输出路径下的<code>mxnet</code>文件夹中：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pyinstaller main.py --add-binary "D:\\Anaconda\\anaconda3\\envs\\mxnet-gpu\\Lib\\site-packages\\mxnet\\libmxnet.dll;.\\mxnet"</span><br></pre></td></tr></table></figure>
+<p><code>--add-binary</code>参数可以出现多次，用于应对多个dll文件的情况，就像这样：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pyinstaller main.py --add-binary "D:\\Anaconda\\anaconda3\\envs\\mxnet-gpu\\Lib\\site-packages\\mxnet\\libmxnet.dll;.\\mxnet" --add-binary "SRC;DEST" --add-binary "SRC;DEST"</span><br></pre></td></tr></table></figure>
+<p>这里面<code>libmxnet.dll</code>如果写成<code>*.dll</code>，就表示文件夹下的所有<code>.dll</code>文件；分号隔开的下一项表示拷贝的目标位置，相对于输出的.exe文件所在路径而定。同理，参数<code>--add-data</code>用于引入静态文件，可以引入一个文件夹、一个文件、一个目录下的文件。</p>
+<p>如果不需要引入路径下的所有dll文件，只需要其中几个，导致最终的命令参数过长且不容易保存，那么使用.spec文件进行打包会是一个好的选择。运行一次命令<code>pyinstaller main.py</code>会生成一个<code>main.spec</code>文件，在这个文件中找到<code>Analysis</code>，修改<code>binaries</code>和<code>datas</code>数组，可以手动引入dll和静态文件。数组的每一项是一个元组，作为<code>pyinstaller</code>调用函数获取文件的参数，元组的第一个参数为源目录，第二个为目标目录，相对或绝对路径均可。一个完整的.spec配置文件示例如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># -*- mode: python ; coding: utf-8 -*-</span></span><br><span class="line"></span><br><span class="line">block_cipher = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = Analysis([<span class="string">'hello_pyinstaller.py'</span>],</span><br><span class="line">             pathex=[<span class="string">'D:\\codes\\Python\\hello_pyinstaller'</span>],</span><br><span class="line">             binaries=[</span><br><span class="line">                 (<span class="string">'D:\\Anaconda\\anaconda3\\envs\\mxnet-gpu\\Lib\\site-packages\\mxnet\\*.dll'</span>, <span class="string">'.\\mxnet'</span>),</span><br><span class="line">                 (<span class="string">'D:\\NVIDIA\\NVIDA GPU Computing Toolkit\\CUDA\\v10.1\\bin\\cublas64_10.dll'</span>, <span class="string">'.\\mxnet'</span>),</span><br><span class="line">                 (<span class="string">'D:\\NVIDIA\\NVIDA GPU Computing Toolkit\\CUDA\\v10.1\\bin\\cublasLt64_10.dll'</span>, <span class="string">'.\\mxnet'</span>),</span><br><span class="line">                 (<span class="string">'D:\\NVIDIA\\NVIDA GPU Computing Toolkit\\CUDA\\v10.1\\bin\\cufft64_10.dll'</span>, <span class="string">'.\\mxnet'</span>),</span><br><span class="line">                 (<span class="string">'D:\\NVIDIA\\NVIDA GPU Computing Toolkit\\CUDA\\v10.1\\bin\\curand64_10.dll'</span>, <span class="string">'.\\mxnet'</span>),</span><br><span class="line">                 (<span class="string">'D:\\NVIDIA\\NVIDA GPU Computing Toolkit\\CUDA\\v10.1\\bin\\cusolver64_10.dll'</span>, <span class="string">'.\\mxnet'</span>),</span><br><span class="line">                 (<span class="string">'D:\\NVIDIA\\NVIDA GPU Computing Toolkit\\CUDA\\v10.1\\bin\\nvrtc64_101_0.dll'</span>, <span class="string">'.\\mxnet'</span>),</span><br><span class="line">             ],</span><br><span class="line">             datas=[</span><br><span class="line">                 (<span class="string">'.\\models'</span>, <span class="string">'.\\models'</span>),</span><br><span class="line">                 (<span class="string">'.\\model_list.json'</span>, <span class="string">'.'</span>)</span><br><span class="line">             ],</span><br><span class="line">             hiddenimports=[],</span><br><span class="line">             hookspath=[],</span><br><span class="line">             runtime_hooks=[],</span><br><span class="line">             excludes=[],</span><br><span class="line">             win_no_prefer_redirects=<span class="literal">False</span>,</span><br><span class="line">             win_private_assemblies=<span class="literal">False</span>,</span><br><span class="line">             cipher=block_cipher,</span><br><span class="line">             noarchive=<span class="literal">False</span>)</span><br><span class="line">pyz = PYZ(a.pure, a.zipped_data,</span><br><span class="line">             cipher=block_cipher)</span><br><span class="line">exe = EXE(pyz,</span><br><span class="line">          a.scripts,</span><br><span class="line">          [],</span><br><span class="line">          exclude_binaries=<span class="literal">True</span>,</span><br><span class="line">          name=<span class="string">'object_detection'</span>,</span><br><span class="line">          debug=<span class="literal">False</span>,</span><br><span class="line">          bootloader_ignore_signals=<span class="literal">False</span>,</span><br><span class="line">          strip=<span class="literal">False</span>,</span><br><span class="line">          upx=<span class="literal">True</span>,</span><br><span class="line">          console=<span class="literal">True</span> )</span><br><span class="line">coll = COLLECT(exe,</span><br><span class="line">               a.binaries,</span><br><span class="line">               a.zipfiles,</span><br><span class="line">               a.datas,</span><br><span class="line">               strip=<span class="literal">False</span>,</span><br><span class="line">               upx=<span class="literal">True</span>,</span><br><span class="line">               upx_exclude=[],</span><br><span class="line">               name=<span class="string">'object_detection'</span>)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>更多.spec文件的用法请前往官网：<a href="https://pyinstaller.readthedocs.io/en/stable/spec-files.html" target="_blank" rel="noopener">Using Spec Files — PyInstaller 4.2 documentation</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
 </search>
