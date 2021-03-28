@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://whuls.github.io/images/image-20200709040451256.png">
 <meta property="og:image" content="https://whuls.github.io/images/image-20200714141850097.png">
 <meta property="article:published_time" content="2020-07-09T04:06:35.000Z">
-<meta property="article:modified_time" content="2020-10-30T11:19:24.415Z">
+<meta property="article:modified_time" content="2021-03-28T10:59:15.762Z">
 <meta property="article:author" content="林杉">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="直线跟踪">
@@ -361,7 +361,7 @@ mjx-container[display="true"] + br {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-30 19:19:24" itemprop="dateModified" datetime="2020-10-30T19:19:24+08:00">2020-10-30</time>
+                <time title="修改时间：2021-03-28 18:59:15" itemprop="dateModified" datetime="2021-03-28T18:59:15+08:00">2021-03-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -425,41 +425,41 @@ mjx-container[display="true"] + br {
 <blockquote>
 <p>RANSAC基本思想描述如下：</p>
 <ol>
-<li>考虑一个<strong>最小抽样集的势为n</strong>的模型（n为初始化模型参数所需要的最小样本数）和一个样本集P，集合P的样本数#(P) &gt; n，从P中随机抽取包含n个样本的P的子集S初始化模型M；</li>
-<li>余集SC=P\S中与模型M的误差小于某一设定阈值t的样本集以及S构成S<em>。S</em>认为是内点集，它们构成S的一致集(Consensus Set)；</li>
-<li>若#(S<em>)≥N，认为得到正确的模型参数，并利用集S</em>(内点inliers)采用最小二乘等方法重新计算新的模型M*；重新随机抽取新的S，重复以上过程；</li>
+<li>考虑一个<strong>最小抽样集的势为n</strong>的模型（n为初始化模型参数所需要的最小样本数）和一个样本集P，集合P的样本数#(P)&gt;n，从P中随机抽取包含n个样本的P的子集S初始化模型M；</li>
+<li>余集SC=P\S中与模型M的误差小于某一设定阈值t的样本集以及S构成S*。S*认为是内点集，它们构成S的一致集(Consensus Set)；</li>
+<li>若#(S*)≥N，认为得到正确的模型参数，并利用集S*(内点inliers)采用最小二乘等方法重新计算新的模型M*；重新随机抽取新的S，重复以上过程；</li>
 <li>在完成一定的抽样次数后，若未找到一致集则算法失败，否则选取抽样后得到的最大一致集判断内外点，算法结束。</li>
 </ol>
 </blockquote>
 <p>基于RANSAC的基本方法，我们可以进行一定的改进，借鉴统计与误差的思想，将其用于边缘图像的直线拟合。下面，将首先介绍该方法的总体流程，接着从种子点的选取、随机选取直线的数量、误差的计算方法三个方面详细论述。</p>
 <h2 id="1-算法流程"><a href="#1-算法流程" class="headerlink" title="1. 算法流程"></a>1. 算法流程</h2><ol>
-<li>对边缘图像进行归一化处理，使其亮度处在某一范围$(a, b)$内；</li>
-<li>在边缘图像中选取一系列种子点$p_i,0 \leq i \lt N$，这些种子点与目标直线有着相似的分布，具有一定亮度信息；</li>
-<li>从所有的种子点中随机选取两点（$pt_1, pt_2$）拟合直线$L$，获得直线参数$a,b,c$；</li>
-<li>分别计算每个种子点与直线$L$的距离$d_i$</li>
+<li>对边缘图像进行归一化处理，使其亮度处在某一范围<script type="math/tex">(a, b)</script>内；</li>
+<li>在边缘图像中选取一系列种子点<script type="math/tex">p_i,0 \leq i \lt N</script>，这些种子点与目标直线有着相似的分布，具有一定亮度信息；</li>
+<li>从所有的种子点中随机选取两点（<script type="math/tex">pt_1, pt_2</script>）拟合直线<script type="math/tex">L</script>，获得直线参数<script type="math/tex">a,b,c</script>；</li>
+<li>分别计算每个种子点与直线<script type="math/tex">L</script>的距离<script type="math/tex">d_i</script></li>
 </ol>
 <script type="math/tex; mode=display">
 d_i=\frac{|ax_i+by_i+c|}{\sqrt{a^2+b^2}}</script><ol>
-<li>考虑亮度$I_i$与距离$d_i$，计算直线$L$与所有种子点之间的标准差$\sigma$，其中，距离与误差成正比，亮度与误差成反比</li>
+<li>考虑亮度<script type="math/tex">I_i</script>与距离<script type="math/tex">d_i</script>，计算直线<script type="math/tex">L</script>与所有种子点之间的标准差<script type="math/tex">\sigma</script>，其中，距离与误差成正比，亮度与误差成反比</li>
 </ol>
 <script type="math/tex; mode=display">
 \sigma=\sqrt{\frac{\sum{\frac{d_i}{I_i}}}{N}}</script><ol>
-<li>重复$K$次3-5步的运算，找到所拟合出的直线$L$具有最小标准差$\sigma_\min$的两个点，这两个点所连接的直线即为目标直线。</li>
+<li>重复<script type="math/tex">K</script>次3-5步的运算，找到所拟合出的直线<script type="math/tex">L</script>具有最小标准差<script type="math/tex">\sigma_\min</script>的两个点，这两个点所连接的直线即为目标直线。</li>
 </ol>
 <h2 id="2-种子点的选取"><a href="#2-种子点的选取" class="headerlink" title="2. 种子点的选取"></a>2. 种子点的选取</h2><p>在对直线的大致位置进行预测后，得到一个缓冲区，缓冲区的中心线与目标直线具有相似的分布。</p>
-<p><img src="/images/image-20200709115957091.png" alt="image-20200709115957091" style="zoom:67%;" /></p>
+<p><img src="/images/image-20200709115957091.png" alt="image-20200709115957091" style="zoom:67%;"></p>
 <p>选取种子点可以在缓冲区的中心线附近沿着直线方向进行查找。</p>
-<p><img src="/images/image-20200709120252902.png" alt="image-20200709120252902" style="zoom:67%;" /></p>
-<h2 id="3-随机选取直线的数量"><a href="#3-随机选取直线的数量" class="headerlink" title="3. 随机选取直线的数量"></a>3. 随机选取直线的数量</h2><p>假设有$N$个种子点（$N≥2$），其中包含两个最优的种子点，在所有点中随机选取，选中两个最优种子点的概率为$q$</p>
+<p><img src="/images/image-20200709120252902.png" alt="image-20200709120252902" style="zoom:67%;"></p>
+<h2 id="3-随机选取直线的数量"><a href="#3-随机选取直线的数量" class="headerlink" title="3. 随机选取直线的数量"></a>3. 随机选取直线的数量</h2><p>假设有<script type="math/tex">N</script>个种子点（<script type="math/tex">N≥2</script>），其中包含两个最优的种子点，在所有点中随机选取，选中两个最优种子点的概率为<script type="math/tex">q</script></p>
 <script type="math/tex; mode=display">
-q = (\frac{1}{N})^2</script><p>在$K$次迭代中，每次迭代随机选取两个点进行拟合，要求拟合的所有直线中，包含最优直线的概率为$P$，则</p>
+q = (\frac{1}{N})^2</script><p>在<script type="math/tex">K</script>次迭代中，每次迭代随机选取两个点进行拟合，要求拟合的所有直线中，包含最优直线的概率为<script type="math/tex">P</script>，则</p>
 <script type="math/tex; mode=display">
 P = 1-(1-q)^K = 1-(1-(\frac{1}{N})^2)^K</script><script type="math/tex; mode=display">
-K = \frac{log(1-P)}{log(1-q)} = \frac{log(1-P)}{log(1-(\frac{1}{N})^2)}</script><p>迭代次数K随种子点数N变化的曲线图如下所示（所有拟合直线中包含最优直线的概率$P=0.95$）：</p>
-<p><img src="/images/image-20200709040451256.png" alt="image-20200709040451256" style="zoom:75%;" /></p>
-<h2 id="4-误差的计算方法"><a href="#4-误差的计算方法" class="headerlink" title="4. 误差的计算方法"></a>4. 误差的计算方法</h2><p>在所有参与直线拟合的种子点中，与直线的距离越远，说明该点是内点的可能性越小，误差越大；同时，种子点的亮度越低，说明该点是边缘点的可能性越小，误差越大。因此可以得到单个种子点$i$的误差计算公式：</p>
+K = \frac{log(1-P)}{log(1-q)} = \frac{log(1-P)}{log(1-(\frac{1}{N})^2)}</script><p>迭代次数K随种子点数N变化的曲线图如下所示（所有拟合直线中包含最优直线的概率<script type="math/tex">P=0.95</script>）：</p>
+<p><img src="/images/image-20200709040451256.png" alt="image-20200709040451256" style="zoom:75%;"></p>
+<h2 id="4-误差的计算方法"><a href="#4-误差的计算方法" class="headerlink" title="4. 误差的计算方法"></a>4. 误差的计算方法</h2><p>在所有参与直线拟合的种子点中，与直线的距离越远，说明该点是内点的可能性越小，误差越大；同时，种子点的亮度越低，说明该点是边缘点的可能性越小，误差越大。因此可以得到单个种子点<script type="math/tex">i</script>的误差计算公式：</p>
 <script type="math/tex; mode=display">
-e_i=\frac{d_i}{I_i}</script><p>其中，$d_i$是种子点$i$到直线的距离，$I_i$是种子点的亮度值。直线整体误差的标准差$\sigma$的计算公式为：</p>
+e_i=\frac{d_i}{I_i}</script><p>其中，<script type="math/tex">d_i</script>是种子点<script type="math/tex">i</script>到直线的距离，<script type="math/tex">I_i</script>是种子点的亮度值。直线整体误差的标准差<script type="math/tex">\sigma</script>的计算公式为：</p>
 <script type="math/tex; mode=display">
 \sigma=\sqrt{\frac{\sum^N_{i=1}{\frac{d_i}{I_i}}}{N}}</script><h1 id="5-提取与跟踪的结果"><a href="#5-提取与跟踪的结果" class="headerlink" title="5. 提取与跟踪的结果"></a>5. 提取与跟踪的结果</h1><p><img src="/images/image-20200714141850097.png" alt="image-20200714141850097"></p>
 
@@ -679,6 +679,59 @@ e_i=\frac{d_i}{I_i}</script><p>其中，$d_i$是种子点$i$到直线的距离�
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
