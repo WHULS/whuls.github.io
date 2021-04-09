@@ -807,7 +807,10 @@ to <code>null</code></li>
   <entry>
     <title>Windows 系统 -命令行右键菜单设置（Git/VS Code/cmd）</title>
     <url>/2018/10/06/Windows-%E7%B3%BB%E7%BB%9F-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95%E8%AE%BE%E7%BD%AE%EF%BC%88Git-VS-Code-cmd%EF%BC%89/</url>
-    <content><![CDATA[<h1 id="1-打开注册表"><a href="#1-打开注册表" class="headerlink" title="1. 打开注册表"></a>1. 打开注册表</h1><p>右键菜单的设置位于位于注册表中，打开方式如下：</p>
+    <content><![CDATA[<h1 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h1><h2 id="2021-3-24"><a href="#2021-3-24" class="headerlink" title="2021.3.24"></a>2021.3.24</h2><p>右键在此处打开Anaconda的命令：</p>
+<p>cmd<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cmd.exe &#x2F;s &#x2F;k &quot;title Anaconda&quot; &amp;&amp; D:\Anaconda\anaconda3\Scripts\activate.bat D:\Anaconda\anaconda3</span><br></pre></td></tr></table></figure></p>
+<p>powershell<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">powershell.exe -noexit -command Set-Location -literalPath &#39;%V&#39; ; &quot;D:\Anaconda\anaconda3\shell\condabin\conda-hook.ps1&quot; ; &quot;conda activate &#39;D:\Anaconda\anaconda3&#39;&quot;</span><br></pre></td></tr></table></figure></p>
+<h1 id="1-打开注册表"><a href="#1-打开注册表" class="headerlink" title="1. 打开注册表"></a>1. 打开注册表</h1><p>右键菜单的设置位于位于注册表中，打开方式如下：</p>
 <ul>
 <li>Win + R</li>
 <li>输入：regedit</li>
@@ -2835,6 +2838,7 @@ e_i=\frac{d_i}{I_i}</script><p>其中，<script type="math/tex">d_i</script>是�
 <h1 id="规范化书写格式"><a href="#规范化书写格式" class="headerlink" title="规范化书写格式"></a>规范化书写格式</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># add your code here</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p><code>pass</code> 是空语句，不做任何事情，一般用作占位语句，为了保证程序结构的完整性</p>
+<p>在vscode中敲一个pass然后换行，可以往前跳一个缩进，可以用来表示当前代码块执行完毕</p>
 </blockquote>
 ]]></content>
       <categories>
@@ -4110,6 +4114,9 @@ e_i=\frac{d_i}{I_i}</script><p>其中，<script type="math/tex">d_i</script>是�
 </blockquote>
 <p>原因是git对文件名的大小写不敏感，因此只需要修改git配置，再重新部署一次，就可以解决问题。</p>
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">git config core.ignorecase false</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>重新部署后建议对文章进行一些修改，否则hexo无法替换原来的文件</p>
+</blockquote>
 ]]></content>
       <categories>
         <category>Git</category>
@@ -4132,6 +4139,10 @@ e_i=\frac{d_i}{I_i}</script><p>其中，<script type="math/tex">d_i</script>是�
 <p>增加<code>&quot;%1&quot;</code>，如下：</p>
 <p><code>&quot;C:\Program Files\Microsoft Office\Root\Office16\EXCEL.EXE&quot; &quot;%1&quot;</code></p>
 <p>保存即可。</p>
+<hr>
+<p>以上配置针对<code>xlsx</code>文件，如果要打开<code>xls</code>文件，只需要以同样的方式修改<code>Excel.Sheet.8\shell\Open\command</code>即可</p>
+<p>针对<code>csv</code>文件，修改<code>计算机\HKEY_CLASSES_ROOT\Excel.CSV\shell\Open\command</code></p>
+<p>或者干脆一点重新装一个</p>
 ]]></content>
       <categories>
         <category>Excel</category>
