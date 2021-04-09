@@ -5170,6 +5170,12 @@ v(R,t) = \frac{1}{n}\sum^n_{i=1}||Rq_i+t-p_i||^2</script><p><mjx-container class
         <td><a target="_blank" href="https://zh.snipaste.com/">https://zh.snipaste.com/</a></td>
     </tr>
     <tr>
+        <td>LICEcap</td>
+        <td>录屏软件</td>
+        <td>开发专用</td>
+        <td><a target="_blank" href="https://www.cockos.com/licecap/">https://www.cockos.com/licecap/</a></td>
+    </tr>
+    <tr>
         <td>Shadowsocks</td>
         <td>SSH</td>
         <td>开发专用</td>
