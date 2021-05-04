@@ -5844,7 +5844,8 @@ m^e\%N=c</script><p>其中，<script type="math/tex">m</script>是信息，<scri
   <entry>
     <title>从1到2：添加绘图、缩放、表格操作等内容</title>
     <url>/2021/05/04/%E4%BB%8E1%E5%88%B02-%E6%B7%BB%E5%8A%A0%E7%BB%98%E5%9B%BE-%E7%BC%A9%E6%94%BE-%E8%A1%A8%E6%A0%BC%E6%93%8D%E4%BD%9C%E7%AD%89%E5%86%85%E5%AE%B9/</url>
-    <content><![CDATA[<h1 id="修改QAction"><a href="#修改QAction" class="headerlink" title="修改QAction"></a>修改QAction</h1><p>在代码中控制界面菜单的QAction内容，如替换文字、设置可选、设置样式等。</p>
+    <content><![CDATA[<p><img src="/images/KvImage-v3.0.gif" alt="KvImage-v3.0"></p>
+<h1 id="修改QAction"><a href="#修改QAction" class="headerlink" title="修改QAction"></a>修改QAction</h1><p>在代码中控制界面菜单的QAction内容，如替换文字、设置可选、设置样式等。</p>
 <h2 id="获取action"><a href="#获取action" class="headerlink" title="获取action"></a>获取action</h2><p>通过<code>ui.[action_name]</code>获取，如：<code>ui.action_open_image</code></p>
 <h2 id="获取-amp-修改文字"><a href="#获取-amp-修改文字" class="headerlink" title="获取&amp;修改文字"></a>获取&amp;修改文字</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>-&gt;ui.action_open_image-&gt;<span class="built_in">text</span>();</span><br><span class="line"><span class="keyword">this</span>-&gt;ui.action_open_image-&gt;setText(QString::fromLocal8Bit(<span class="string">"哈哈哈"</span>));</span><br></pre></td></tr></table></figure>
 <h2 id="设置是否可选"><a href="#设置是否可选" class="headerlink" title="设置是否可选"></a>设置是否可选</h2><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">this</span>-&gt;ui.action_open_image-&gt;setEnabled(<span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
