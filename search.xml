@@ -1652,54 +1652,40 @@ to <code>null</code></li>
   <entry>
     <title>Git 常用操作</title>
     <url>/2019/03/01/Git-%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<h1 id="1-单条命令操作举例"><a href="#1-单条命令操作举例" class="headerlink" title="1. 单条命令操作举例"></a>1. 单条命令操作举例</h1><p>检查远程仓库连接</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote add [name] [ssh-url]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> eg: git remote add gitee git@gitee.com:whuls/Water-Simulation.git</span></span><br><span class="line"><span class="meta">#</span><span class="bash">     git remote add github git@github.com:whuls/Water-Simulation.git</span></span><br></pre></td></tr></table></figure>
-<p>移除仓库</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote rm [name]</span><br><span class="line"><span class="meta">#</span><span class="bash"> eg: git remote rm gitee</span></span><br></pre></td></tr></table></figure>
-<p>查看远程情况</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote -v</span><br></pre></td></tr></table></figure>
-<p>获取远程仓库分支</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git fetch [name] [branch]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> eg: git fetch gitee gao</span></span><br></pre></td></tr></table></figure>
-<p>查看本地分支情况</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch</span><br></pre></td></tr></table></figure>
-<p>创建新的分支</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch [local branch name]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> eg: git branch lin</span></span><br></pre></td></tr></table></figure>
-<p>改变分支</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout [local branch name]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> eg: git checkout lin <span class="comment"># 当前分支不为lin</span></span></span><br></pre></td></tr></table></figure>
-<p>对比分支和本地分支情况</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git log -p [local branch name]..[name]/[branch]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> eg: git <span class="built_in">log</span> -p gao..gitee/gao</span></span><br></pre></td></tr></table></figure>
-<p>合并（远程）分支</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git merge [name]/[branch]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> eg: git merge gitee/gao</span></span><br></pre></td></tr></table></figure>
+    <content><![CDATA[<h1 id="1-远程仓库操作"><a href="#1-远程仓库操作" class="headerlink" title="1. 远程仓库操作"></a>1. 远程仓库操作</h1><h2 id="检查保存的远程仓库地址"><a href="#检查保存的远程仓库地址" class="headerlink" title="检查保存的远程仓库地址"></a>检查保存的远程仓库地址</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote add [name] [ssh-url]</span><br><span class="line"><span class="meta">#</span><span class="bash"> eg: git remote add gitee git@gitee.com:whuls/example.git</span></span><br><span class="line"><span class="meta">#</span><span class="bash">     git remote add github git@github.com:whuls/example.git</span></span><br></pre></td></tr></table></figure>
+<h2 id="移除远程仓库地址"><a href="#移除远程仓库地址" class="headerlink" title="移除远程仓库地址"></a>移除远程仓库地址</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote rm [name]</span><br><span class="line"><span class="meta">#</span><span class="bash"> eg: git remote rm gitee</span></span><br></pre></td></tr></table></figure>
+<h2 id="查看远程仓库地址"><a href="#查看远程仓库地址" class="headerlink" title="查看远程仓库地址"></a>查看远程仓库地址</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote -v</span><br><span class="line"><span class="meta">#</span><span class="bash"> gitee git@gitee.com:whuls/example.git</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> github git@github.com:whuls/example.git</span></span><br></pre></td></tr></table></figure>
+<h2 id="从远程仓库同步分支信息"><a href="#从远程仓库同步分支信息" class="headerlink" title="从远程仓库同步分支信息"></a>从远程仓库同步分支信息</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git fetch [name] [branch]</span><br><span class="line"><span class="meta">#</span><span class="bash"> eg: git fetch origin master</span></span><br></pre></td></tr></table></figure>
+<h2 id="推送到远程仓库"><a href="#推送到远程仓库" class="headerlink" title="推送到远程仓库"></a>推送到远程仓库</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git push [name] [branch]</span><br><span class="line"><span class="meta">#</span><span class="bash"> eg: git push origin master</span></span><br></pre></td></tr></table></figure>
+<p>可以为当前的分支设置上传流（<code>upstream</code>），设置方式如下：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout branch1</span><br><span class="line">git branch --set-upstream-to origin/branch1</span><br></pre></td></tr></table></figure>
+<p>或</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout branch1</span><br><span class="line">git branch -u origin/branch1</span><br></pre></td></tr></table></figure>
+<p>设置上传流之后表明确定了当前分支默认关联的远程分支，不需要每次推送（push）时都指定分支，因此推送操作可以简化为：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git push origin</span><br></pre></td></tr></table></figure>
+<p>也可以设置上传流为本地分支，不过好像除了检查同步之外没有别的便利之处。</p>
+<h1 id="2-分支操作"><a href="#2-分支操作" class="headerlink" title="2. 分支操作"></a>2. 分支操作</h1><h2 id="查看本地及远程分支"><a href="#查看本地及远程分支" class="headerlink" title="查看本地及远程分支"></a>查看本地及远程分支</h2><p>xxxxxxx是分支所在的版本id，msg是该版本对应的提交信息。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch -v -a</span><br><span class="line"><span class="meta">#</span><span class="bash"> branch1               xxxxxxx msg......</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> master                xxxxxxx msg......</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> remotes/origin/master xxxxxxx msg......</span></span><br></pre></td></tr></table></figure>
+<h2 id="创建新的分支"><a href="#创建新的分支" class="headerlink" title="创建新的分支"></a>创建新的分支</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch [local_branch_name]</span><br><span class="line"><span class="meta">#</span><span class="bash"> eg: git branch branch1</span></span><br></pre></td></tr></table></figure>
+<h2 id="更改当前分支"><a href="#更改当前分支" class="headerlink" title="更改当前分支"></a>更改当前分支</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout [local_branch_name]</span><br><span class="line"><span class="meta">#</span><span class="bash"> eg: git checkout branch1</span></span><br></pre></td></tr></table></figure>
+<h2 id="对比分支"><a href="#对比分支" class="headerlink" title="对比分支"></a>对比分支</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git log -p [branch1]..[branch2]</span><br></pre></td></tr></table></figure>
+<p>两个分支可以是本地分支也可以是远程分支。只有写在后面的分支比前面的分支新，这条命令才会显示对比信息，否则显示为空。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git log -p master..branch1</span><br><span class="line"><span class="meta">#</span><span class="bash"> commit dca801bdbddb005bac36bf6a296b333952c54dac (HEAD -&gt; linetrack)</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Author: whuls &lt;hayzlsls@163.com&gt;</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Date:   Wed May 5 15:52:54 2021 +0800</span></span><br><span class="line"><span class="meta">#</span></span><br><span class="line"><span class="meta">#</span><span class="bash">    123</span></span><br><span class="line"><span class="meta">#</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> diff --git a/aaa b/aaa</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> new file mode 100644</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> index 0000000..e69de29</span></span><br></pre></td></tr></table></figure>
+<h2 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h2><p>合并（远程）分支</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git merge [name]/[branch]</span><br><span class="line"><span class="meta">#</span><span class="bash"> eg: git merge gitee/branch1</span></span><br></pre></td></tr></table></figure>
 <p>合并（本地）分支</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git merge [local branch name]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> eg: git merge master <span class="comment"># 前提是当前分支不是master</span></span></span><br></pre></td></tr></table></figure>
-<p>提交更改（本地）</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m "Your Change Message"</span><br></pre></td></tr></table></figure>
-<p>同步到远程仓库</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git push [name] [branch]</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> eg: git push gitee gu</span></span><br></pre></td></tr></table></figure>
-<h1 id="提交更改"><a href="#提交更改" class="headerlink" title="提交更改"></a>提交更改</h1><ol>
-<li>提交到本地仓库</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m "Your message"</span><br></pre></td></tr></table></figure>
-<ol>
-<li>推送到远程仓库</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m "Your message"</span><br><span class="line">git push [仓库名] [分支]        # git push origin liao</span><br></pre></td></tr></table></figure>
-<h1 id="获取远程仓库的内容"><a href="#获取远程仓库的内容" class="headerlink" title="获取远程仓库的内容"></a>获取远程仓库的内容</h1><ol>
-<li>查看当前分支</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch -v -a</span><br></pre></td></tr></table></figure>
-<ol>
-<li>切换分支</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git checkout [你要去的分支名] # git checkout lin</span><br></pre></td></tr></table></figure>
-<ol>
-<li>获取远程内容并合并【推荐在本地分支commit之后再获取(fetch)和合并(merge)】</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git fetch [仓库名] [分支] # git fetch origin lin</span><br><span class="line">git merge [仓库名]/[分支] # git merge origin/lin</span><br></pre></td></tr></table></figure>
-<ol>
-<li>当前分支与远程某一分支合并(merge)</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> At liao</span></span><br><span class="line">git fetch origin lin</span><br><span class="line">git merge origin/lin</span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git merge [local_branch_name]</span><br><span class="line"><span class="meta">#</span><span class="bash"> eg: git merge branch1</span></span><br></pre></td></tr></table></figure>
+<h2 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h2><p>删除本地分支</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch -d branch1</span><br></pre></td></tr></table></figure>
+<p>如果branch1与当前分支不同（存在更改），则可以合并后再删除，或者使用强制命令<code>-D</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch -D branch1</span><br></pre></td></tr></table></figure>
+<p>删除远程分支：在push的时候加上<code>--delete</code>参数或者在分支前加上冒号<code>:</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git push origin --delete branch1</span><br><span class="line">git push origin :branch1</span><br></pre></td></tr></table></figure>
+<h1 id="3-常用组合技"><a href="#3-常用组合技" class="headerlink" title="3. 常用组合技"></a>3. 常用组合技</h1><h2 id="一次提交"><a href="#一次提交" class="headerlink" title="一次提交"></a>一次提交</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote -v</span><br><span class="line">git remote add origin git@gitee.com:whuls/whuls</span><br><span class="line">git add .</span><br><span class="line">git commit -m "Your message"</span><br><span class="line">git push origin</span><br></pre></td></tr></table></figure>
+<h2 id="添加、查看、删除远程仓库"><a href="#添加、查看、删除远程仓库" class="headerlink" title="添加、查看、删除远程仓库"></a>添加、查看、删除远程仓库</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git remote add origin git@gitee.com:whuls/whuls</span><br><span class="line">git remote -v</span><br><span class="line">git remote rm origin</span><br></pre></td></tr></table></figure>
+<h2 id="查看远程仓库的分支更新情况并合并"><a href="#查看远程仓库的分支更新情况并合并" class="headerlink" title="查看远程仓库的分支更新情况并合并"></a>查看远程仓库的分支更新情况并合并</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git fetch origin</span><br><span class="line">git branch -v -a</span><br><span class="line">git checkout branch1</span><br><span class="line">git merge origin/master</span><br></pre></td></tr></table></figure>
+<h2 id="创建一个分支"><a href="#创建一个分支" class="headerlink" title="创建一个分支"></a>创建一个分支</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch branch1</span><br><span class="line">git checkout branch1</span><br></pre></td></tr></table></figure>
+<h2 id="合并本地分支"><a href="#合并本地分支" class="headerlink" title="合并本地分支"></a>合并本地分支</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git branch -v -a</span><br><span class="line">git checkout branch1</span><br><span class="line">git merge master</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>Git</category>
       </categories>
@@ -5944,18 +5930,6 @@ m^e\%N=c</script><p>其中，<script type="math/tex">m</script>是信息，<scri
       <tags>
         <tag>C++</tag>
         <tag>Qt</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>OpenCV单目标跟踪</title>
-    <url>/2021/04/13/OpenCV%E5%8D%95%E7%9B%AE%E6%A0%87%E8%B7%9F%E8%B8%AA/</url>
-    <content><![CDATA[]]></content>
-      <categories>
-        <category>C++</category>
-      </categories>
-      <tags>
-        <tag>OpenCV</tag>
-        <tag>C++</tag>
       </tags>
   </entry>
 </search>
