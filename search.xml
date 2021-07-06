@@ -6413,4 +6413,110 @@ m^e\%N=c</script><p>其中，<script type="math/tex">m</script>是信息，<scri
         <tag>C++</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Ubuntu 18.04下Nginx使用手记</title>
+    <url>/2021/07/06/Ubuntu-18-04%E4%B8%8BNginx%E4%BD%BF%E7%94%A8%E6%89%8B%E8%AE%B0/</url>
+    <content><![CDATA[<blockquote>
+<p>参考资料：</p>
+<p><a href="https://www.cnblogs.com/EasonJim/p/7806879.html" target="_blank" rel="noopener">Ubuntu 16.04安装Nginx</a></p>
+<p><a href="https://segmentfault.com/a/1190000015797789" target="_blank" rel="noopener">Ubuntu安装配置Nginx（一）——部署Web服务</a></p>
+</blockquote>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="apt安装"><a href="#apt安装" class="headerlink" title="apt安装"></a>apt安装</h2><p>推荐使用apt安装，在参考的博客中有一种手动安装的方式，看着挺麻烦，有机会再试吧。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install nginx</span><br></pre></td></tr></table></figure>
+<p>安装好的文件位置：</p>
+<p><code>/usr/sbin/nginx</code>：主程序</p>
+<p><code>/etc/nginx</code>：存放配置文件</p>
+<p><code>/usr/share/nginx</code>：存放静态文件</p>
+<p><code>/var/log/nginx</code>：存放日志</p>
+<p>关于文件位置，其实从上面的根目录文件夹可以知道，Linux系统的配置文件一般放在/etc，日志一般放在/var/log，运行的程序一般放在/usr/sbin或者/usr/bin。</p>
+<p>还有一个好处，创建好的文件由于放在/usr/sbin目录下，所以能直接在终端中使用nginx命令而无需指定路径。</p>
+<h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><p>使用apt-get安装nginx后，会自动创建服务，会自动在<code>/etc/init.d</code>下新建服务脚本<code>nginx</code>，可以在终端中使用如下命令进行操作：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo service nginx &#123;start|stop|restart|reload|force-reload|status|configtest|rotate|upgrade&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo service nginx start</span><br><span class="line">sudo nginx</span><br></pre></td></tr></table></figure>
+<h2 id="重新加载服务"><a href="#重新加载服务" class="headerlink" title="重新加载服务"></a>重新加载服务</h2><p>修改配置后重新加载时</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo service nginx reload</span><br><span class="line">sudo service nginx restart</span><br><span class="line">sudo nginx -s reload</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>reload</code>和<code>restart</code>的区别：前者会在更新配置文件时检查，若配置文件语法出错则保持原先状态不变，不会导致服务中断；后者先执行<code>stop</code>后执行<code>start</code>，会造成服务中断，且不会对语法进行检查，若有错则直接导致启动失败；</li>
+<li><code>reload</code>操作可以通过服务<code>service</code>，也可以通过给命令<code>nginx</code>发送信号<code>-s reload</code>执行。</li>
+</ul>
+<h2 id="退出服务"><a href="#退出服务" class="headerlink" title="退出服务"></a>退出服务</h2><p>直接停止，不管是否有请求没处理完：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo service nginx stop</span><br><span class="line">sudo nginx -s stop</span><br></pre></td></tr></table></figure>
+<p>有序退出，等待请求处理完毕：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo nginx -s quit</span><br></pre></td></tr></table></figure>
+<h1 id="服务器配置"><a href="#服务器配置" class="headerlink" title="服务器配置"></a>服务器配置</h1><h2 id="查看和测试配置文件"><a href="#查看和测试配置文件" class="headerlink" title="查看和测试配置文件"></a>查看和测试配置文件</h2><p>查看并测试配置文件，主要检查语法错误</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo nginx -t</span><br><span class="line"></span><br><span class="line">nginx: the configuration file /etc/nginx/nginx.conf syntax is ok</span><br><span class="line">nginx: configuration file /etc/nginx/nginx.conf test is successful</span><br></pre></td></tr></table></figure>
+<p>指定配置文件路径</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo nginx -t -c /home/me/a.conf</span><br><span class="line"></span><br><span class="line">nginx: [emerg] open() "/home/me/a.conf" failed (2: No such file or directory)</span><br><span class="line">nginx: configuration file /home/me/a.conf test failed</span><br></pre></td></tr></table></figure>
+<h2 id="设置配置文件"><a href="#设置配置文件" class="headerlink" title="设置配置文件"></a>设置配置文件</h2><p>通过<code>sudo service nginx start</code>或者<code>sudo nginx</code>启动服务时，默认的配置文件为<code>/etc/nginx/nginx.conf</code>。</p>
+<p>如何修改呢？通过<code>nginx</code>命令启动时，修改方式为添加参数<code>-c</code>：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo nginx -c /etc/nginx/nginx.conf</span><br></pre></td></tr></table></figure>
+<p>通过服务启动的话网上资料比较少，且不建议这么修改，最新版本nginx配置是由4个文件构成：</p>
+<ol>
+<li><code>conf.d</code>：用户自己定义的conf配置文件</li>
+<li><code>sites-available</code>：系统默认设置的配置文件</li>
+<li><code>sites-enabled</code>：由<code>sites-available</code>中的配置文件转换生成</li>
+<li><code>nginx.conf</code>：汇总以上三个配置文件的内容，同时配置我们所需要的参数</li>
+</ol>
+<p>在部署需要的web服务时，我们可以拷贝<code>sites-enabled</code>中的<code>default</code>文件到conf.d并且修改名字为<code>**.conf</code>,然后进行配置。</p>
+<p>在<code>nginx.conf</code>中主要进行服务器的全局设置，关于http服务的部署被剥离出去，由其他三个文件夹决定。在<code>nginx.conf</code>中引入<code>conf.d</code>和<code>sites-enabled</code>两个文件夹中的服务器配置，引入顺序如下所示：</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">	<span class="comment"># 省略</span></span><br><span class="line">    <span class="attribute">include</span> /etc/nginx/conf.d/<span class="regexp">*.conf</span>;</span><br><span class="line">    <span class="attribute">include</span> /etc/nginx/sites-enabled/*;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也就是说，服务器配置的东西被写到了http字段下。观察文件夹发现，<code>conf.d</code>文件夹默认为空，<code>sites-enabled</code>文件夹中只有一个<code>default</code>文件，这里面写了基础的服务器配置，包括端口、首页、404页面。</p>
+<p>如果在<code>conf.d</code>文件夹中添加服务器配置，那么也不会覆盖掉端口为80的服务端配置，如果要对默认的服务器配置进行修改，最好的办法是把<code>default</code>文件内容复制到另一个文本文件中，命名为<code>xxx.conf</code>放到<code>conf.d</code>中，然后在<code>nginx.conf</code>中把语句<code>include /etc/nginx/sites-enabled/*;</code>注释掉。</p>
+<h2 id="静态服务器配置"><a href="#静态服务器配置" class="headerlink" title="静态服务器配置"></a>静态服务器配置</h2><figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Default server configuration</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">	<span class="comment"># 监听端口</span></span><br><span class="line">	<span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 设置静态根目录</span></span><br><span class="line">	<span class="attribute">root</span> /var/www/html;</span><br><span class="line"></span><br><span class="line">	<span class="comment"># 列表：默认首页文件</span></span><br><span class="line">	<span class="attribute">index</span> index.html index.htm index.nginx-debian.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关于<code>index</code>，类似于指定了一个页面入口。若不指定，只有通过<code>192.168.0.1/index.html</code>才能访问页面，直接通过<code>192.168.0.1</code>会提示403。</p>
+<p>通过如上配置，可以在目录<code>/var/www/html</code>中放置任何html静态页面，并<strong>支持文件夹</strong>。</p>
+<h2 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h2><blockquote>
+<p><a href="https://www.cnblogs.com/progor/p/13338483.html" target="_blank" rel="noopener">循序渐进nginx(一)：介绍、安装、hello world、Location匹配</a></p>
+<p><a href="https://www.cnblogs.com/progor/p/13338484.html" target="_blank" rel="noopener">循序渐进nginx(二)：反向代理、负载均衡、缓存服务、静态资源访问</a></p>
+</blockquote>
+<h3 id="代理域名"><a href="#代理域名" class="headerlink" title="代理域名"></a>代理域名</h3><p>只需要加上<code>server_name</code>，即可代理域名</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">    <span class="attribute">server_name</span> study.rsgis.whu.edu.cn;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 设置长连接</span></span><br><span class="line">    <span class="attribute">keepalive_timeout</span> <span class="number">70</span>;</span><br><span class="line"></span><br><span class="line">    <span class="attribute">location</span> / &#123;</span><br><span class="line">        <span class="attribute">proxy_pass_header</span> server;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> Host <span class="variable">$http_host</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</span><br><span class="line">        <span class="attribute">proxy_set_header</span> X-Scheme <span class="variable">$scheme</span>;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://127.0.0.1:8088/;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="代理请求"><a href="#代理请求" class="headerlink" title="代理请求"></a>代理请求</h3><p>设置了一个静态文件夹，放在3303端口，用80端口的<code>/app</code>路由来代理这个端口。</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Default server configuration</span></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">	<span class="comment"># 监听端口</span></span><br><span class="line">	<span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="comment"># 设置静态根目录</span></span><br><span class="line">	<span class="attribute">root</span> /var/www/html;</span><br><span class="line"></span><br><span class="line">	<span class="comment"># 列表：默认首页文件</span></span><br><span class="line">	<span class="attribute">index</span> index.html index.htm index.nginx-debian.html;</span><br><span class="line"></span><br><span class="line">	<span class="attribute">location</span> /app/ &#123;</span><br><span class="line">		<span class="attribute">proxy_pass</span> http://localhost:3303/;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">	<span class="attribute">listen</span> <span class="number">3303</span>;</span><br><span class="line">	<span class="attribute">root</span> /var/www/app;</span><br><span class="line"></span><br><span class="line">	<span class="attribute">index</span> index.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<p><code>location</code>和<code>proxy_pass</code>设置的讲究</p>
+<figure class="highlight nginx"><table><tr><td class="code"><pre><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">	<span class="attribute">listen</span> <span class="number">8080</span>;</span><br><span class="line">	<span class="attribute">location</span> /api/ &#123;</span><br><span class="line">		<span class="attribute">proxy_pass</span> http://localhost:8081/;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在lcoation都是<code>location /api/</code>时，proxy_pass不同，请求的资源也是不一样的：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>proxy_pass</th>
+<th>请求</th>
+<th>转发结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>proxy_pass http://localhost:8081;</code></td>
+<td><code>hostname:8080/api/user/list</code></td>
+<td><code>http://locahost:8081/api/user/list</code></td>
+</tr>
+<tr>
+<td><code>proxy_pass http://localhost:8081/;</code></td>
+<td><code>hostname:8080/api/user/list</code></td>
+<td><code>http://locahost:8081/user/list</code></td>
+</tr>
+<tr>
+<td><code>proxy_pass http://localhost:8081/test;</code></td>
+<td><code>hostname:8080/api/user/list</code></td>
+<td><code>http://locahost:8081/testuser/list</code></td>
+</tr>
+<tr>
+<td><code>proxy_pass http://localhost:8081/test/;</code></td>
+<td><code>hostname:8080/api/user/list</code></td>
+<td><code>http://locahost:8081/test/user/list</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+]]></content>
+      <categories>
+        <category>Nginx</category>
+      </categories>
+      <tags>
+        <tag>Ubuntu</tag>
+        <tag>Nginx</tag>
+      </tags>
+  </entry>
 </search>
