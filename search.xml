@@ -5986,8 +5986,8 @@ m^e\%N=c</script><p>其中，<script type="math/tex">m</script>是信息，<scri
     <content><![CDATA[<p>fontStyle.js</p>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> fontStyle = &#123;</span><br><span class="line">    <span class="comment">// 亮色</span></span><br><span class="line">    bright: <span class="function">(<span class="params">str</span>) =&gt;</span> &#123; <span class="keyword">return</span> <span class="string">`\x1B[1m<span class="subst">$&#123;str&#125;</span>\x1B[0m`</span>; &#125;,</span><br><span class="line">    <span class="comment">// 灰色</span></span><br><span class="line">    grey: <span class="function">(<span class="params">str</span>) =&gt;</span> &#123; <span class="keyword">return</span> <span class="string">`\x1B[2m<span class="subst">$&#123;str&#125;</span>\x1B[0m`</span>; &#125;,</span><br><span class="line">    <span class="comment">// 斜体</span></span><br><span class="line">    italic: <span class="function">(<span class="params">str</span>) =&gt;</span> &#123; <span class="keyword">return</span> <span class="string">`\x1B[3m<span class="subst">$&#123;str&#125;</span>\x1B[0m`</span>; &#125;,</span><br><span class="line">    <span class="comment">// 下划线</span></span><br><span class="line">    underline: <span class="function">(<span class="params">str</span>) =&gt;</span> &#123; <span class="keyword">return</span> <span class="string">`\x1B[4m<span class="subst">$&#123;str&#125;</span>\x1B[0m`</span>; &#125;,</span><br><span class="line">    <span class="comment">// 反向</span></span><br><span class="line">    reverse: <span class="function">(<span class="params">str</span>) =&gt;</span> &#123; <span class="keyword">return</span> <span class="string">`\x1B[7m<span class="subst">$&#123;str&#125;</span>\x1B[0m`</span>; &#125;,</span><br><span class="line">    <span class="comment">// 隐藏</span></span><br><span class="line">    hidden: <span class="function">(<span class="params">str</span>) =&gt;</span> &#123; <span class="keyword">return</span> <span class="string">`\x1B[8m<span class="subst">$&#123;str&#125;</span>\x1B[0m`</span>; &#125;,</span><br><span class="line">    <span class="comment">// 黑色</span></span><br><span class="line">    black: <span class="function">(<span class="params">str</span>) =&gt;</span> &#123; <span class="keyword">return</span> <span class="string">`\x1B[30m<span class="subst">$&#123;str&#125;</span>\x1B[0m`</span>; &#125;,</span><br><span class="line">    <span class="comment">// 红色</span></span><br><span class="line">    red: <span class="function">(<span class="params">str</span>) =&gt;</span> &#123; <span class="keyword">return</span> <span class="string">`\x1B[31m<span class="subst">$&#123;str&#125;</span>\x1B[0m`</span>; &#125;,</span><br><span class="line">    <span class="comment">// 绿色</span></span><br><span class="line">    green: <span class="function">(<span class="params">str</span>) =&gt;</span> &#123; <span class="keyword">return</span> <span class="string">`\x1B[32m<span class="subst">$&#123;str&#125;</span>\x1B[0m`</span>; &#125;,</span><br><span class="line">    <span class="comment">// 黄色</span></span><br><span class="line">    yellow: <span class="function">(<span class="params">str</span>) =&gt;</span> &#123; <span class="keyword">return</span> <span class="string">`\x1B[33m<span class="subst">$&#123;str&#125;</span>\x1B[0m`</span>; &#125;,</span><br><span class="line">    <span class="comment">// 蓝色</span></span><br><span class="line">    blue: <span class="function">(<span class="params">str</span>) =&gt;</span> &#123; <span class="keyword">return</span> <span class="string">`\x1B[34m<span class="subst">$&#123;str&#125;</span>\x1B[0m`</span>; &#125;,</span><br><span class="line">    <span class="comment">// 品红</span></span><br><span class="line">    magenta: <span class="function">(<span class="params">str</span>) =&gt;</span> &#123; <span class="keyword">return</span> <span class="string">`\x1B[35m<span class="subst">$&#123;str&#125;</span>\x1B[0m`</span>; &#125;,</span><br><span class="line">    <span class="comment">// 青色</span></span><br><span class="line">    cyan: <span class="function">(<span class="params">str</span>) =&gt;</span> &#123; <span class="keyword">return</span> <span class="string">`\x1B[36m<span class="subst">$&#123;str&#125;</span>\x1B[0m`</span>; &#125;,</span><br><span class="line">    <span class="comment">// 白色</span></span><br><span class="line">    white: <span class="function">(<span class="params">str</span>) =&gt;</span> &#123; <span class="keyword">return</span> <span class="string">`\x1B[37m<span class="subst">$&#123;str&#125;</span>\x1B[0m`</span>; &#125;,</span><br><span class="line">    <span class="comment">// 背景色为黑色</span></span><br><span class="line">    blackBG: <span class="function">(<span class="params">str</span>) =&gt;</span> &#123; <span class="keyword">return</span> <span class="string">`\x1B[40m<span class="subst">$&#123;str&#125;</span>\x1B[0m`</span>; &#125;,</span><br><span class="line">    <span class="comment">// 背景色为红色</span></span><br><span class="line">    redBG: <span class="function">(<span class="params">str</span>) =&gt;</span> &#123; <span class="keyword">return</span> <span class="string">`\x1B[41m<span class="subst">$&#123;str&#125;</span>\x1B[0m`</span>; &#125;,</span><br><span class="line">    <span class="comment">// 背景色为绿色</span></span><br><span class="line">    greenBG: <span class="function">(<span class="params">str</span>) =&gt;</span> &#123; <span class="keyword">return</span> <span class="string">`\x1B[42m<span class="subst">$&#123;str&#125;</span>\x1B[0m`</span>; &#125;,</span><br><span class="line">    <span class="comment">// 背景色为黄色</span></span><br><span class="line">    yellowBG: <span class="function">(<span class="params">str</span>) =&gt;</span> &#123; <span class="keyword">return</span> <span class="string">`\x1B[43m<span class="subst">$&#123;str&#125;</span>\x1B[0m`</span>; &#125;,</span><br><span class="line">    <span class="comment">// 背景色为蓝色</span></span><br><span class="line">    blueBG: <span class="function">(<span class="params">str</span>) =&gt;</span> &#123; <span class="keyword">return</span> <span class="string">`\x1B[44m<span class="subst">$&#123;str&#125;</span>\x1B[0m`</span>; &#125;,</span><br><span class="line">    <span class="comment">// 背景色为品红</span></span><br><span class="line">    magentaBG: <span class="function">(<span class="params">str</span>) =&gt;</span> &#123; <span class="keyword">return</span> <span class="string">`\x1B[45m<span class="subst">$&#123;str&#125;</span>\x1B[0m`</span>; &#125;,</span><br><span class="line">    <span class="comment">// 背景色为青色</span></span><br><span class="line">    cyanBG: <span class="function">(<span class="params">str</span>) =&gt;</span> &#123; <span class="keyword">return</span> <span class="string">`\x1B[46m<span class="subst">$&#123;str&#125;</span>\x1B[0m`</span>; &#125;,</span><br><span class="line">    <span class="comment">// 背景色为白色</span></span><br><span class="line">    whiteBG: <span class="function">(<span class="params">str</span>) =&gt;</span> &#123; <span class="keyword">return</span> <span class="string">`\x1B[47m<span class="subst">$&#123;str&#125;</span>\x1B[0m`</span>; &#125;,</span><br><span class="line">    <span class="comment">// 自定义样式序号</span></span><br><span class="line">    custom: <span class="function">(<span class="params">code = <span class="built_in">Number</span>, str</span>) =&gt;</span> &#123; <span class="keyword">return</span> <span class="string">`\x1B[<span class="subst">$&#123;code&#125;</span>m<span class="subst">$&#123;str&#125;</span>\x1B[0m`</span>; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = fontStyle;</span><br></pre></td></tr></table></figure>
 <p>做了个简单的测试：</p>
-<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">50</span>; i++) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;i&#125;</span>: <span class="subst">$&#123;fontStyle.custom(i, <span class="string">"123"</span>)&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>结果如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">150</span>; i++) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;i&#125;</span>: <span class="subst">$&#123;fontStyle.custom(i, <span class="string">"123"</span>)&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>发现了一些比较有意思的颜色，比如90的灰色，1的加粗，7的反色：</p>
 <p><img src="/images/image-20210525092231953.png" alt="image-20210525092231953"></p>
 ]]></content>
       <categories>
@@ -6200,12 +6200,16 @@ m^e\%N=c</script><p>其中，<script type="math/tex">m</script>是信息，<scri
 <figure class="highlight json"><table><tr><td class="code"><pre><span class="line">解密后的数据：</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"account"</span>: <span class="string">"test"</span>,</span><br><span class="line">    <span class="attr">"password"</span>: <span class="string">"123456"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>C++</category>
-        <category>JavaScript</category>
+        <category>crypto</category>
       </categories>
       <tags>
         <tag>C++</tag>
-        <tag>JavaScript</tag>
+        <tag>Node.js</tag>
+        <tag>Crypto.js</tag>
+        <tag>AES</tag>
+        <tag>CryptoPP</tag>
+        <tag>Node-RSA</tag>
+        <tag>RSA</tag>
       </tags>
   </entry>
   <entry>
@@ -6426,7 +6430,8 @@ m^e\%N=c</script><p>其中，<script type="math/tex">m</script>是信息，<scri
 <p>安装好的文件位置：</p>
 <p><code>/usr/sbin/nginx</code>：主程序</p>
 <p><code>/etc/nginx</code>：存放配置文件</p>
-<p><code>/usr/share/nginx</code>：存放静态文件</p>
+<p><code>/usr/share/nginx</code>：存放静态文件（好像是旧版本用的）</p>
+<p><code>/var/www/html</code>：默认设置的静态文件目录</p>
 <p><code>/var/log/nginx</code>：存放日志</p>
 <p>关于文件位置，其实从上面的根目录文件夹可以知道，Linux系统的配置文件一般放在/etc，日志一般放在/var/log，运行的程序一般放在/usr/sbin或者/usr/bin。</p>
 <p>还有一个好处，创建好的文件由于放在/usr/sbin目录下，所以能直接在终端中使用nginx命令而无需指定路径。</p>
@@ -6721,6 +6726,361 @@ m^e\%N=c</script><p>其中，<script type="math/tex">m</script>是信息，<scri
         <tag>ACL</tag>
         <tag>RBAC</tag>
         <tag>ABAC</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>使用nssm创建Windows服务</title>
+    <url>/2021/07/12/%E4%BD%BF%E7%94%A8nssm%E5%88%9B%E5%BB%BAWindows%E6%9C%8D%E5%8A%A1/</url>
+    <content><![CDATA[<blockquote>
+<p><a href="https://nssm.cc" target="_blank" rel="noopener">https://nssm.cc</a></p>
+<p>直接下载：<a href="https://nssm.cc/release/nssm-2.24.zip" target="_blank" rel="noopener">https://nssm.cc/release/nssm-2.24.zip</a></p>
+<p>使用命令：<a href="https://nssm.cc/commands" target="_blank" rel="noopener">https://nssm.cc/commands</a></p>
+</blockquote>
+<p>在Windows中没法像Linux中添加服务那么容易，当要运行某个一直开着的非图形界面程序时需要保持命令行开启，例如nodejs，frp，为了将这类程序添加到服务中，可以手动添加服务并修改注册表，但是操作起来比较麻烦，细节比较多。好在发现了一个工具<a href="https://nssm.cc" target="_blank" rel="noopener">nssm</a>，提供了图形化界面可以将<code>.cmd</code>或<code>.bat</code>或<code>.exe</code>添加到服务中，使用方法如下：</p>
+<p>下载后解压<code>nssm-2.24.zip</code>，打开命令行<code>cd</code>到该文件夹下的<code>win32</code>或<code>win64</code>文件夹中，执行以下命令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./nssm.exe install CustomService</span><br></pre></td></tr></table></figure>
+<p>这句话的意思是将要在添加一个名为<code>CustomService</code>的系统服务，运行后会弹出一个对话框，选择程序目录、程序名称、输入命令行参数等，全都输入完毕再点击“确定”，即可添加服务。</p>
+<p>一些常用的命令记录如下（完整命令可以查看<a href="https://nssm.cc/commands" target="_blank" rel="noopener">NSSM | Command line</a>）。</p>
+<p>安装服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nssm install &lt;service name&gt;</span><br></pre></td></tr></table></figure>
+<p>移除服务</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nssm remove &lt;service name&gt;</span><br></pre></td></tr></table></figure>
+<p>启动、暂停、重启服务器</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">nssm start &lt;service name&gt;</span><br><span class="line">nssm stop &lt;service name&gt;</span><br><span class="line">nssm restart &lt;service name&gt;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Windows</category>
+      </categories>
+      <tags>
+        <tag>Windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Node.js区分require引用和执行</title>
+    <url>/2021/07/14/Node-js%E5%8C%BA%E5%88%86require%E5%BC%95%E7%94%A8%E5%92%8C%E6%89%A7%E8%A1%8C/</url>
+    <content><![CDATA[<p>在python中，可以使用<code>__name__</code>来区分引用还是执行，例如：</p>
+<p>module.py</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">	print(<span class="string">"执行"</span>)</span><br></pre></td></tr></table></figure>
+<p>在main.py中引用不会输出：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> module</span><br></pre></td></tr></table></figure>
+<p>通过解译器执行会输出：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">python module.py  # 输出："执行"</span><br></pre></td></tr></table></figure>
+<p>Node.js也有模块化的思想，要实现区分引用和执行，需要使用<code>require</code>和<code>module</code>，使用方法如下：</p>
+<p>module.js</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">require</span>.main === <span class="built_in">module</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'执行'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>引用时不输出：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">'./module.js'</span>);</span><br></pre></td></tr></table></figure>
+<p>执行时输出：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">node module.js  # 输出："执行"</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Node.js</category>
+      </categories>
+      <tags>
+        <tag>Node.js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Koa.js 自定义koa-session加密方法</title>
+    <url>/2021/07/12/Koa-js-%E8%87%AA%E5%AE%9A%E4%B9%89koa-session%E5%8A%A0%E5%AF%86%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Koa.js开发团队提供的session管理中间件<code>koa-session</code>（<a href="https://github.com/koajs/session" target="_blank" rel="noopener">koajs/session</a>），默认将session的内容保存在cookies中，其基本使用方法为：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> session = <span class="built_in">require</span>(<span class="string">'koa-session'</span>);</span><br><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa();</span><br><span class="line"></span><br><span class="line">app.keys = [<span class="string">'some secret hurr'</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> CONFIG = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">app.use(session(CONFIG, app));</span><br><span class="line"><span class="comment">// or if you prefer all default config, just use =&gt; app.use(session(app));</span></span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'listening on port 3000'</span>);</span><br></pre></td></tr></table></figure>
+<p>其中<code>CONFIG</code>用于对中间件进行配置。查看<a href="https://github.com/koajs/session/blob/master/index.js" target="_blank" rel="noopener">源码</a>后发现，里面用于将session加密的函数为：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Decode the base64 cookie value to an object.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;String&#125;</span> <span class="variable">string</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;Object&#125;</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@api <span class="variable">private</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">decode(string) &#123;</span><br><span class="line">    <span class="keyword">const</span> body = Buffer.from(string, <span class="string">'base64'</span>).toString(<span class="string">'utf8'</span>);</span><br><span class="line">    <span class="keyword">const</span> json = <span class="built_in">JSON</span>.parse(body);</span><br><span class="line">    <span class="keyword">return</span> json;</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Encode an object into a base64-encoded JSON string.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;Object&#125;</span> <span class="variable">body</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;String&#125;</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@api <span class="variable">private</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">encode(body) &#123;</span><br><span class="line">    body = <span class="built_in">JSON</span>.stringify(body);</span><br><span class="line">    <span class="keyword">return</span> Buffer.from(body).toString(<span class="string">'base64'</span>);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>仅仅做了一个base64的编码，把浏览器端cookies中保存的session字段用base64解码，直接就能获得明文，这很明显一点也不安全。</p>
+<p>为了对session数据做进一步的加密，本文引入<code>crypto-js</code>，对数据进行基于PBKDF2的AES加密，关于原理请看2021年7月11日的另一篇博客，下一章节只有实现代码。</p>
+<h1 id="自定义koa-session的加密方法"><a href="#自定义koa-session的加密方法" class="headerlink" title="自定义koa-session的加密方法"></a>自定义koa-session的加密方法</h1><p><code>crypto-js</code>安装：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm i crypto-js -S</span><br></pre></td></tr></table></figure>
+<p>实现：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> CryptoJS = <span class="built_in">require</span>(<span class="string">'crypto-js'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> aesKey = <span class="string">'aes key'</span>;</span><br><span class="line"><span class="keyword">const</span> aesIv = CryptoJS.enc.Hex.parse(<span class="string">'00112233'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> encode = <span class="function">(<span class="params">body</span>) =&gt;</span> &#123;</span><br><span class="line">    body = <span class="built_in">JSON</span>.stringify(body);</span><br><span class="line">    <span class="keyword">return</span> CryptoJS.AES.encrypt(body, aesKey, &#123; <span class="attr">iv</span>: aesIv &#125;).toString();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> decode = <span class="function">(<span class="params">string</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> body = CryptoJS.AES.decrypt(string, aesKey, &#123; <span class="attr">iv</span>: aesIv &#125;)</span><br><span class="line">        .toString(CryptoJS.enc.Utf8).toString();</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">JSON</span>.parse(body);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里直接使用CryptoJS的AES加密解密，注意<code>encode(body)</code>函数的参数是json对象，<code>decode(string)</code>函数的参数是加密后的字符串。</p>
+<p>添加到配置：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> KoaSession = <span class="built_in">require</span>(<span class="string">'koa-session'</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="built_in">require</span>(<span class="string">'koa'</span>)();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置session中间件</span></span><br><span class="line"><span class="keyword">const</span> CONFIG = &#123;</span><br><span class="line">    encode,</span><br><span class="line">    decode</span><br><span class="line">&#125;;</span><br><span class="line">app.use(KoaSession(CONFIG, app));</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">8888</span>);</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Node.js</category>
+      </categories>
+      <tags>
+        <tag>Node.js</tag>
+        <tag>Koa.js</tag>
+        <tag>CryptoJS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Crypto.js中的AES加密的参数key是什么意思？</title>
+    <url>/2021/07/11/Crypto-js%E4%B8%AD%E7%9A%84AES%E5%8A%A0%E5%AF%86%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%82%E6%95%B0%E6%98%AF%E4%BB%80%E4%B9%88%E6%84%8F%E6%80%9D/</url>
+    <content><![CDATA[<blockquote>
+<p>注意到使用<code>CryptoJS.AES.encrypt</code>进行加密时，第二个参数<code>key</code>可以为<code>CryptoJS.lib.wordarray</code>，也可以为<code>string</code>，如果是前者，每次加密的结果都一样，如果是后者，每次加密结果都不一致，这是为什么呢？</p>
+</blockquote>
+<p>在CryptoJS的<a href="https://cryptojs.gitbook.io/docs" target="_blank" rel="noopener">官方文档</a>有这么一句话：</p>
+<blockquote>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> encrypted = CryptoJS.AES.encrypt(<span class="string">"Message"</span>, <span class="string">"Secret Passphrase"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> decrypted = CryptoJS.AES.decrypt(encrypted, <span class="string">"Secret Passphrase"</span>);</span><br></pre></td></tr></table></figure>
+<p>CryptoJS supports AES-128, AES-192, and AES-256. It will pick the variant by the size of the key you pass in. If you use a passphrase, then it will generate a 256-bit key.</p>
+</blockquote>
+<p>意思是如果传入的为一个wordarray，那么会根据位数执行<code>AES-128</code>/<code>AES-192</code>/<code>AES-256</code>的加密算法；如果传入的是一个短语，也就是字符串，那么会根据这个字符串，生成一个256位的密钥。</p>
+<h1 id="密钥的位数"><a href="#密钥的位数" class="headerlink" title="密钥的位数"></a>密钥的位数</h1><p>如何指定密钥的位数从而指定加密算法呢？手动操作<code>CryptoJS.lib.wordarray</code>吗？很显然这有点困难，这方面的文档也比较少。我们不妨回归算法的本质。</p>
+<p>AES加密算法中的128/192/256指的是位数，即<code>bit</code>。将其转换为字节，分别对应16字节、24字节、32字节（分别除以8）。</p>
+<p>一个字节能存储的数据长度为<code>2^8 = 256</code>，取值范围为<code>0-255</code>，换算成16进制就是<code>00-FF</code>，这样就提供了一个思路，可以通过<strong>构建16进制字符串来指定密钥的位数</strong>。在16进制字符串中，2个字符表示1个字节。</p>
+<p><code>crypto-js</code>提供了一个函数：<code>CryptoJS.enc.Hex.parse()</code>，可以将16进制字符串转成<code>wordarray</code>，由此来指定密钥的位数：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> CryptoJS = <span class="built_in">require</span>(<span class="string">'crypto-js'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 长度为16字节的密钥，2个字符表示1字节的16进制数</span></span><br><span class="line"><span class="keyword">const</span> hexKeyStr = <span class="string">"AA00BB11CC22DD33EE44FF5566778899"</span>;</span><br><span class="line"><span class="keyword">const</span> hexIvStr = <span class="string">"00112233445566778899aabbccddeeff"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// AES-128 加密</span></span><br><span class="line"><span class="keyword">const</span> data = &#123; <span class="attr">name</span>: <span class="string">'test'</span>, <span class="attr">pwd</span>: <span class="string">'123456'</span> &#125;;</span><br><span class="line"><span class="keyword">const</span> enc = CryptoJS.AES.encrypt(<span class="built_in">JSON</span>.stringify(data), CryptoJS.enc.Hex.parse(hexKeyStr), &#123;</span><br><span class="line">    iv: CryptoJS.enc.Hex.parse(hexIvStr),</span><br><span class="line">    mode: CryptoJS.mode.CBC,</span><br><span class="line">    padding: CryptoJS.pad.Pkcs7</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(enc.ciphertext.toString());</span><br><span class="line"><span class="comment">// 314a0c0af60bf916e1ca49f2d0dcb4cfe2c31a92937ef25e4e12ce9d0951c8f6</span></span><br><span class="line"><span class="built_in">console</span>.log(enc.toString());</span><br><span class="line"><span class="comment">// MUoMCvYL+Rbhykny0Ny0z+LDGpKTfvJeThLOnQlRyPY=</span></span><br></pre></td></tr></table></figure>
+<p>生成16进制字符串可以使用<code>crypto-js</code>自带的函数：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 生成16字节的word array</span></span><br><span class="line"><span class="keyword">const</span> hexWordArray = CryptoJS.lib.WordArray.random(<span class="number">128</span> / <span class="number">8</span>);</span><br><span class="line"><span class="comment">// 将word array转为16进制字符串</span></span><br><span class="line"><span class="keyword">const</span> hexStr = hexWordArray.toString();</span><br></pre></td></tr></table></figure>
+<h1 id="使用字符串作为密钥：PBKDF2算法"><a href="#使用字符串作为密钥：PBKDF2算法" class="headerlink" title="使用字符串作为密钥：PBKDF2算法"></a>使用字符串作为密钥：PBKDF2算法</h1><blockquote>
+<p><a href="https://stackoverflow.com/questions/22875419/cryptojs-how-to-generate-aes-passphrase" target="_blank" rel="noopener">cryptojs: How to generate AES passphrase</a></p>
+<p><a href="https://segmentfault.com/a/1190000004261009" target="_blank" rel="noopener">【笔记】PBKDF2算法</a></p>
+</blockquote>
+<p>一直在思考，为什么传入一个字符串也可以进行加密，而且每次加密的结果都不一样，所谓的自动生成256位密钥又是什么原理，知道看到了Stack Overflow上面的这个问题：<a href="https://stackoverflow.com/questions/22875419/cryptojs-how-to-generate-aes-passphrase" target="_blank" rel="noopener">cryptojs: How to generate AES passphrase</a>，了解到这背后的原理是PBKDF算法。</p>
+<p>PBKDF2（Password-Based Key Derivation Function）是一个用来导出密钥的函数，常用于生成加密的密码。</p>
+<p>它的基本原理是通过一个伪随机函数（例如HMAC函数），把明文和一个盐值作为输入参数，然后重复进行运算，并最终产生密钥。</p>
+<p>如果重复的次数足够大，破解的成本就会变得很高。而盐值的添加也会增加“彩虹表”攻击的难度。</p>
+<p>在CryptoJS中封装了PBKDF2算法（<a href="https://cryptojs.gitbook.io/docs/#pbkdf2" target="_blank" rel="noopener">官方文档 # pbkdf2</a>），使用方法如下所示：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> salt = CryptoJS.lib.WordArray.random(<span class="number">128</span> / <span class="number">8</span>);</span><br><span class="line"><span class="keyword">var</span> key128Bits = CryptoJS.PBKDF2(<span class="string">"abcdefg123++"</span>, salt, &#123;</span><br><span class="line">    keySize: <span class="number">128</span> / <span class="number">32</span></span><br><span class="line">&#125;).toString();</span><br><span class="line"><span class="built_in">console</span>.log(key128Bits.length, key128Bits);</span><br><span class="line"><span class="comment">// 32 a53fbb9fd7616c8312a16865499170e9</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> key256Bits = CryptoJS.PBKDF2(<span class="string">"abcdefg123++"</span>, salt, &#123;</span><br><span class="line">    keySize: <span class="number">256</span> / <span class="number">32</span></span><br><span class="line">&#125;).toString();</span><br><span class="line"><span class="built_in">console</span>.log(key256Bits.length, key256Bits);</span><br><span class="line"><span class="comment">// 64 a53fbb9fd7616c8312a16865499170e96c2c1eb126641c4a4b540f29d453f56f</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> key512Bits = CryptoJS.PBKDF2(<span class="string">"abcdefg123++"</span>, salt, &#123;</span><br><span class="line">    keySize: <span class="number">512</span> / <span class="number">32</span></span><br><span class="line">&#125;).toString();</span><br><span class="line"><span class="built_in">console</span>.log(key512Bits.length, key512Bits);</span><br><span class="line"><span class="comment">// 128 a53fbb9fd7616c8312a16865499170e96c2c1eb126641c4a4b540f29d453f56f6024b91f301da2e660849f48ce9cad7ddae340bc7b5bcef1944a742cb771e3fb</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> key512Bits1000Iterations = CryptoJS.PBKDF2(<span class="string">"abcdefg123++"</span>, salt, &#123;</span><br><span class="line">    keySize: <span class="number">512</span> / <span class="number">32</span>,</span><br><span class="line">    iterations: <span class="number">1000</span></span><br><span class="line">&#125;).toString();</span><br><span class="line"><span class="built_in">console</span>.log(key512Bits1000Iterations.length, key512Bits1000Iterations);</span><br><span class="line"><span class="comment">// 128 520465b48238dce46d228a9114d9e731e4cae83bab0623dfce4a213fa4d772ad6365cf18f2e71001b432b16b4ab4e2f2c1f417801dcfe168e1226d540167beec</span></span><br></pre></td></tr></table></figure>
+<p>代码解释：</p>
+<ul>
+<li>使用<code>CryptoJS.lib.WordArray.random(128 / 8);</code>生成了一个<code>128/8</code>字节长度的椒盐噪声；</li>
+<li>使用椒盐噪声和密钥<code>abcdefg123++</code>，通过<code>CryptoJS.PBKDF2</code>生成随机密钥；</li>
+<li><code>keySize</code>的设定为“密钥位数/32”，猜测是因为算法中用于运算的数字是32位整型数字；</li>
+<li>使用<code>toString()</code>转为16进制字符串，该字符串长度除以2等于字节数，再乘以8得到位数。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>crypto</category>
+      </categories>
+      <tags>
+        <tag>Crypto.js</tag>
+        <tag>PBKDF2</tag>
+        <tag>AES</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Koa2入门笔记</title>
+    <url>/2021/07/11/Koa2%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<blockquote>
+<p>参考资料</p>
+<p><a href="https://segmentfault.com/a/1190000008314332" target="_blank" rel="noopener">Node.js 框架对比之 Express VS Koa</a></p>
+<p><a href="https://www.itying.com/koa/article-index-id-90.html" target="_blank" rel="noopener">Koa2中文文档_Koa2教程</a></p>
+<p><a href="https://github.com/koajs/koa/blob/master/docs/guide.md" target="_blank" rel="noopener">github | koajs/koa/guide</a></p>
+<p><a href="https://koajs.com" target="_blank" rel="noopener">https://koajs.com</a></p>
+</blockquote>
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><ul>
+<li><p><code>Koa.js</code>是基于Node.js的web应用服务端框架，相较于同一团队开发的<code>Express.js</code>来说它体积更小，功能更简洁，同时也尽可能减少了Node.js中存在的大量的回调。</p>
+</li>
+<li><p>目前通过npm直接安装的<code>Koa.js</code>都是2.0版本以上，如果不是需要升级npm到最新版本；如果需要用1.x版本的可以在安装时指定版本号：<code>npm i koa@1.7.0 -S</code></p>
+</li>
+<li>使用<code>try...catch</code>结构处理异常，相较于<code>Express.js</code>中的基于回调函数的组合业务逻辑，异常捕获更加轻松自然。</li>
+</ul>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>初始化一个npm目录后执行安装：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">node <span class="literal">-v</span>   <span class="comment"># v12.14.0</span></span><br><span class="line">npm <span class="literal">-v</span>    <span class="comment"># 6.13.4</span></span><br><span class="line">npm init <span class="literal">-y</span></span><br><span class="line">npm i koa <span class="literal">-S</span></span><br></pre></td></tr></table></figure>
+<p>安装的版本是：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"dependencies": &#123;</span><br><span class="line">    "koa": "^2.13.1"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h1><p>在目录下创建<code>app.js</code>，在其中写入：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa();</span><br><span class="line"></span><br><span class="line">app.use(<span class="keyword">async</span>(ctx, next) =&gt; &#123;</span><br><span class="line">    ctx.body = <span class="string">'Hello Koa.js v2'</span>;</span><br><span class="line">    <span class="keyword">await</span> next();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 监听</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> port = <span class="number">8888</span>;</span><br><span class="line">app.listen(port, <span class="string">'0.0.0.0'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`app listen on: http://127.0.0.1:<span class="subst">$&#123;port&#125;</span>`</span>);</span><br></pre></td></tr></table></figure>
+<p>这样就搭建好了一个服务器，在命令行输入<code>node app</code>，打开浏览器对应的地址即可访问。</p>
+<p>其实最后监听那边写成<code>Express.js</code>中的回调风格也是可以的（如下所示），虽然也不是不可以，但是这里是Koa2的教程，所以还是要尽可能地减少使用回调嘛，除了<code>app.use</code>那边不得不用之外，其他地方最好都不要用。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> server = app.listen(<span class="number">8888</span>, <span class="string">'0.0.0.0'</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> port = server.address().port;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`app listen on: http://127.0.0.1:<span class="subst">$&#123;port&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h1 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h1><h2 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h2><p>中间件是<code>Koa.js</code>的核心概念，一个koa实例的最重要的构成就是中间件，这些中间件以函数的形式存放在一个数组中，根据http请求以类似于堆栈的方式执行。</p>
+<p><code>Koa.js</code>的中间件的最大的特点在于其控制流，根据官网的说法，当存在多个中间件时，调用的顺序是从下游（downstream）开始，循着控制流回到上游（upstream），这一方式称作级联（Cascading），将在下一小节论述。</p>
+<p>由于<code>Koa.js</code>本身功能简洁，诸如路由、静态目录、请求内容解析等功能全都由中间件来实现，其官方提供了一个收录列表，记录了其生态中的中间件列表，若有实际应用需求可以首先来这边寻找。</p>
+<blockquote>
+<p>koa中间件官方收录：</p>
+<p><a href="https://github.com/koajs/koa/wiki#middleware" target="_blank" rel="noopener">https://github.com/koajs/koa/wiki#middleware</a></p>
+</blockquote>
+<h2 id="级联"><a href="#级联" class="headerlink" title="级联"></a>级联</h2><p>中间件级联也可以理解为嵌套，从一次请求开始，数据流会依次流过不同的中间件，最后返回到客户端。在这个流动的过程中，我们可以根据请求做出一定的响应、添加解析功能、进行拦截、添加分流等。而<code>Koa.js</code>提供了一个接口，允许开发者自由控制数据流。</p>
+<p>控制的关键就在于<code>next</code>函数，下面是一个官方给出的例子，用于统计一次请求的响应时间，并记录到响应头中、打印到控制台。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa();</span><br><span class="line"></span><br><span class="line"><span class="comment">// logger</span></span><br><span class="line"></span><br><span class="line">app.use(<span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">  <span class="keyword">await</span> next();</span><br><span class="line">  <span class="keyword">const</span> rt = ctx.response.get(<span class="string">'X-Response-Time'</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;ctx.method&#125;</span> <span class="subst">$&#123;ctx.url&#125;</span> - <span class="subst">$&#123;rt&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// x-response-time</span></span><br><span class="line"></span><br><span class="line">app.use(<span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> start = <span class="built_in">Date</span>.now();</span><br><span class="line">  <span class="keyword">await</span> next();</span><br><span class="line">  <span class="keyword">const</span> ms = <span class="built_in">Date</span>.now() - start;</span><br><span class="line">  ctx.set(<span class="string">'X-Response-Time'</span>, <span class="string">`<span class="subst">$&#123;ms&#125;</span>ms`</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// response</span></span><br><span class="line"></span><br><span class="line">app.use(<span class="keyword">async</span> ctx =&gt; &#123;</span><br><span class="line">  ctx.body = <span class="string">'Hello World'</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>);</span><br></pre></td></tr></table></figure>
+<p>当服务器收到请求时，首先来到<code>logger</code>中间件，当执行到<code>await next()</code>语句时，就将当前函数的内容挂起，执行之后的中间件；来到<code>x-response-time</code>中间件时，记录了一下请求发生的时间，接着执行到<code>await next()</code>，挂起等待，进入下一个中间件；在执行完最后一个中间件<code>response</code>之后，发现后续没有中间件了，那么就按照先进后出的顺序，向上回溯，先来到<code>x-response-time</code>的<code>await next()</code>之后，执行记录响应时间并写到http响应头的操作，执行完之后，再回溯到<code>logger</code>，从http响应头中拿到记录的响应时间，打印到控制台。再往上已没有中间件，该请求就被发送回客户端，一次请求的处理流程就走完了。</p>
+<p>中间件级联中的控制流的核心在于<code>await next()</code>语句，由它作为数据下游（downstream）和上游（upstream）的界线。当请求发生时，会根据所写的中间件的顺序，执行<code>await next()</code>语句之前的语句，当最后一个中间件执行完毕后，下游结束，并按照进来的顺序，反向回溯，执行中间件中写在<code>await next()</code>之后的语句。就差不多是下面这个意思：</p>
+<p><img src="/images/image-20210708215037915.png" alt="image-20210708215037915" style="zoom:50%;" /></p>
+<p>如果参与级联的中间件不包含<code>next()</code>语句，则认为它就是级联的终点，例如下面语句的执行结果是：请求响应内容只有一个<code>Hello,</code>：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// response 1</span></span><br><span class="line">app.use(<span class="function"><span class="params">ctx</span> =&gt;</span> &#123;</span><br><span class="line">    ctx.body = <span class="string">'Hello,'</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// response 2</span></span><br><span class="line">app.use(<span class="function"><span class="params">ctx</span> =&gt;</span> &#123;</span><br><span class="line">    ctx.body += <span class="string">'World!'</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>要让响应内容为<code>Hello,World!</code>，需要改写成：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// response 1</span></span><br><span class="line">app.use(<span class="keyword">async</span> (ctx, next) =&gt; &#123;</span><br><span class="line">    ctx.body = <span class="string">'Hello,'</span>;</span><br><span class="line">    <span class="keyword">await</span> next();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// response 2</span></span><br><span class="line">app.use(<span class="function"><span class="params">ctx</span> =&gt;</span> &#123;</span><br><span class="line">    ctx.body += <span class="string">'World!'</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>尝试了一下，好像加不加<code>async/await</code>都可以发挥<code>next()</code>的作用：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// response 1</span></span><br><span class="line">app.use(<span class="function">(<span class="params">ctx, next</span>) =&gt;</span> &#123;</span><br><span class="line">    ctx.body = <span class="string">'Hello,'</span>;</span><br><span class="line">    next();</span><br><span class="line">    ctx.body += <span class="string">'12345'</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// response 2</span></span><br><span class="line">app.use(<span class="function"><span class="params">ctx</span> =&gt;</span> &#123;</span><br><span class="line">    ctx.body += <span class="string">'World!'</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>响应内容为：<code>Hello,World!12345</code>。</p>
+<h1 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h1><p><a href="https://github.com/koajs" target="_blank" rel="noopener">koajs</a>开发者提供了两个路由中间件：<a href="https://github.com/koajs/route" target="_blank" rel="noopener">koa-route</a>和<a href="https://github.com/koajs/router" target="_blank" rel="noopener">koa-router</a>，前者号称超级简易（uber simple），后者则包含了路由的完整特性（full-featured）。</p>
+<h2 id="koa-route"><a href="#koa-route" class="headerlink" title="koa-route"></a>koa-route</h2><p>由于不打算使用这个，仅在这边贴几行代码说明安装和示例：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install koa-route</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> _ = <span class="built_in">require</span>(<span class="string">'koa-route'</span>);</span><br><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> db = &#123;</span><br><span class="line">  tobi: &#123; <span class="attr">name</span>: <span class="string">'tobi'</span>, <span class="attr">species</span>: <span class="string">'ferret'</span> &#125;,</span><br><span class="line">  loki: &#123; <span class="attr">name</span>: <span class="string">'loki'</span>, <span class="attr">species</span>: <span class="string">'ferret'</span> &#125;,</span><br><span class="line">  jane: &#123; <span class="attr">name</span>: <span class="string">'jane'</span>, <span class="attr">species</span>: <span class="string">'ferret'</span> &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> pets = &#123;</span><br><span class="line">  list: <span class="function">(<span class="params">ctx</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> names = <span class="built_in">Object</span>.keys(db);</span><br><span class="line">    ctx.body = <span class="string">'pets: '</span> + names.join(<span class="string">', '</span>);</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  show: <span class="function">(<span class="params">ctx, name</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> pet = db[name];</span><br><span class="line">    <span class="keyword">if</span> (!pet) <span class="keyword">return</span> ctx.throw(<span class="string">'cannot find that pet'</span>, <span class="number">404</span>);</span><br><span class="line">    ctx.body = pet.name + <span class="string">' is a '</span> + pet.species;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">app.use(_.get(<span class="string">'/pets'</span>, pets.list));</span><br><span class="line">app.use(_.get(<span class="string">'/pets/:name'</span>, pets.show));</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'listening on port 3000'</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="koa-router"><a href="#koa-router" class="headerlink" title="koa-router"></a>koa-router</h2><blockquote>
+<p><a href="https://github.com/koajs/router/blob/master/API.md" target="_blank" rel="noopener">API</a></p>
+</blockquote>
+<p>安装：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm i @koa/router -S</span><br></pre></td></tr></table></figure>
+<p>Adm.js：在独立文件中创建路由、实例化并导出</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> Router = <span class="built_in">require</span>(<span class="string">'@koa/router'</span>);</span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> Router();</span><br><span class="line"></span><br><span class="line">router.get(<span class="string">'/'</span>, ctx =&gt; &#123;</span><br><span class="line">    ctx.body = <span class="string">'admin home'</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = router;</span><br></pre></td></tr></table></figure>
+<p>app.js：在主程序中，<strong>设置前缀</strong>（嵌套路由）、添加到服务器应用中。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 各类路由</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> AdmRouter = <span class="built_in">require</span>(<span class="string">'./routes/adm'</span>);</span><br><span class="line">app.use(AdmRouter.prefix(<span class="string">'/adm'</span>).routes());</span><br></pre></td></tr></table></figure>
+<p>通过以上的路由配置，打开浏览器访问<code>http://localhost:8888/adm</code>，即可看到<code>admin home</code>的内容。</p>
+<h3 id="router-prefix-设置路由前缀-级联路由"><a href="#router-prefix-设置路由前缀-级联路由" class="headerlink" title="router.prefix() 设置路由前缀/级联路由"></a>router.prefix() 设置路由前缀/级联路由</h3><p>可以为一个路由设置前缀，它的返回值是加完前缀的路由，有什么用呢，举个例子。</p>
+<p>在<code>Express.js</code>中，添加路由前缀的方法是：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">app.use(<span class="string">'/adm'</span>, AdmRouter);</span><br></pre></td></tr></table></figure>
+<p>但是<code>Koa.js</code>中为了做到简洁，不允许这样的用法，<code>app.use</code>只能接受一个参数，要设置前缀就需要通过router自带的方法：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">app.use(AdmRouter.prefix(<span class="string">'/adm'</span>).routes());</span><br></pre></td></tr></table></figure>
+<h3 id="router-use-设置路由中间件"><a href="#router-use-设置路由中间件" class="headerlink" title="router.use() 设置路由中间件"></a>router.use() 设置路由中间件</h3><p>根据路由匹配，添加处理的中间件。可以指定1个或多个路由，也可以不指定；至少指定一个中间件。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// session middleware will run before authorize</span></span><br><span class="line">router</span><br><span class="line">  .use(session())</span><br><span class="line">  .use(authorize());</span><br><span class="line"></span><br><span class="line"><span class="comment">// or</span></span><br><span class="line">router.use(session(), authorize());</span><br><span class="line"></span><br><span class="line"><span class="comment">// use middleware only with given path</span></span><br><span class="line">router.use(<span class="string">'/users'</span>, userAuth());</span><br><span class="line"></span><br><span class="line"><span class="comment">// or with an array of paths</span></span><br><span class="line">router.use([<span class="string">'/users'</span>, <span class="string">'/admin'</span>], userAuth());</span><br><span class="line"></span><br><span class="line">app.use(router.routes());</span><br></pre></td></tr></table></figure>
+<h3 id="router-redirect-重定向方法"><a href="#router-redirect-重定向方法" class="headerlink" title="router.redirect() 重定向方法"></a>router.redirect() 重定向方法</h3><p>重定向</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">router.redirect(<span class="string">'/login'</span>, <span class="string">'/home'</span>);</span><br></pre></td></tr></table></figure>
+<p>相等于：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">router.all(<span class="string">'/login'</span>, ctx =&gt; &#123;</span><br><span class="line">    ctx.redirect(<span class="string">'/home'</span>);</span><br><span class="line">    ctx.status = <span class="number">301</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h1 id="挂载实例或中间件"><a href="#挂载实例或中间件" class="headerlink" title="挂载实例或中间件"></a>挂载实例或中间件</h1><blockquote>
+<p><a href="https://github.com/koajs/mount" target="_blank" rel="noopener">koajs/mount</a>：主要被设计来挂载其他Koa实例，但也可以挂载中间件。</p>
+</blockquote>
+<p>挂载在这里的意思是将某些中间件或者将Koa实例作为中间件对应到特定的路由上，类似于<code>koa-router</code>的<code>prefix()</code>功能。</p>
+<p>安装：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm i koa-mount -S</span><br></pre></td></tr></table></figure>
+<p>koa-mount可以挂载Koa实例，也可以挂载中间件。</p>
+<p>挂载实例的示例代码如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> mount = <span class="built_in">require</span>(<span class="string">'koa-mount'</span>);</span><br><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实例a：hello</span></span><br><span class="line"><span class="keyword">const</span> a = <span class="keyword">new</span> Koa();</span><br><span class="line">a.use(<span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params">ctx, next</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">await</span> next();</span><br><span class="line">  ctx.body = <span class="string">'Hello'</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实例b：world</span></span><br><span class="line"><span class="keyword">const</span> b = <span class="keyword">new</span> Koa();</span><br><span class="line">b.use(<span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params">ctx, next</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">await</span> next();</span><br><span class="line">  ctx.body = <span class="string">'World'</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// app</span></span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa();</span><br><span class="line"></span><br><span class="line">app.use(mount(<span class="string">'/hello'</span>, a));</span><br><span class="line">app.use(mount(<span class="string">'/world'</span>, b));</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'listening on port 3000'</span>);</span><br></pre></td></tr></table></figure>
+<p>以上的a和b都是Koa的实例，通过koa-mount挂载到实例app上，并在app上执行监听，当服务器收到不同的请求时，得到的响应分别是：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> GET /</span></span><br><span class="line">Not Found</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> GET /hello</span></span><br><span class="line">Hello</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> GET /world</span></span><br><span class="line">World</span><br></pre></td></tr></table></figure>
+<p>koa-mount还可以挂载中间件，例如挂载一个路由，或者挂载一些自定义的中间件：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> mount = <span class="built_in">require</span>(<span class="string">'koa-mount'</span>);</span><br><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">hello</span>(<span class="params">ctx, next</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">await</span> next();</span><br><span class="line">  ctx.body = <span class="string">'Hello'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">world</span>(<span class="params">ctx, next</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">await</span> next();</span><br><span class="line">  ctx.body = <span class="string">'World'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa();</span><br><span class="line"></span><br><span class="line">app.use(mount(<span class="string">'/hello'</span>, hello));</span><br><span class="line">app.use(mount(<span class="string">'/world'</span>, world));</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'listening on port 3000'</span>);</span><br></pre></td></tr></table></figure>
+<p>挂载函数的第一个参数是路由地址，可以不写，默认挂载到全路径下。在挂载中间件时，<code>app.use(ctx =&gt; {})</code>等价于<code>app.use(mount(ctx =&gt; {}))</code>。</p>
+<h1 id="参数解析"><a href="#参数解析" class="headerlink" title="参数解析"></a>参数解析</h1><blockquote>
+<p><a href="https://github.com/koajs/koa-body" target="_blank" rel="noopener">koajs/koa-body</a></p>
+</blockquote>
+<p><code>Koa.js</code>团队提供了一个用于参数解析的中间件<a href="https://github.com/koajs/koa-body" target="_blank" rel="noopener">koajs/koa-body</a>，支持<code>multipart</code>，<code>urlencoded</code>，<code>json</code>请求体的解析。</p>
+<p>该中间件还提供了与<a href="https://github.com/expressjs/multer" target="_blank" rel="noopener">expressjs/multer</a>一至的功能（解析<code>multipart/form-data</code>，主要用于文件上传）。</p>
+<p>也有另一个基于<a href="https://github.com/cojs/co-body" target="_blank" rel="noopener">cojs/co-body</a>的参数解析中间件<a href="https://github.com/koajs/bodyparser" target="_blank" rel="noopener">koajs/bodyparser</a>，不过已经一年多没更新了，因此这里我们用的是前者。</p>
+<h2 id="安装koa-body"><a href="#安装koa-body" class="headerlink" title="安装koa-body"></a>安装koa-body</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm i koa-body -S</span><br></pre></td></tr></table></figure>
+<h2 id="使用koa-body"><a href="#使用koa-body" class="headerlink" title="使用koa-body"></a>使用koa-body</h2><p>使用<code>koa-body</code>有两种方式，一种是直接设置在Koa的根实例上，对每一个请求都解析一边参数，这样好处是一次配置永久省心，但缺点是会造成不必要的计算浪费，以及不够灵活。另一种方式是设置在<code>koa-router</code>的路由上，这样足够灵活且不会造成浪费，因此推荐使用第二种。</p>
+<p>设置在Koa根实例上：对所有请求都解析参数</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> Koa = <span class="built_in">require</span>(<span class="string">'koa'</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa();</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 参数解析</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> KoaBody = <span class="built_in">require</span>(<span class="string">'koa-body'</span>);</span><br><span class="line">app.use(KoaBody());</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 监听</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">app.listen(<span class="number">8888</span>, <span class="string">'0.0.0.0'</span>);</span><br></pre></td></tr></table></figure>
+<p>设置在路由中间件中：仅对特定路由生效</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> Router = <span class="built_in">require</span>(<span class="string">'@koa/router'</span>);</span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> Router();</span><br><span class="line"><span class="keyword">const</span> KoaBody = <span class="built_in">require</span>(<span class="string">'koa-body'</span>);</span><br><span class="line"></span><br><span class="line">router.post(<span class="string">'/login'</span>, KoaBody(), ctx =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; account, password &#125; = ctx.request.body;</span><br><span class="line">    <span class="keyword">if</span> (account == <span class="string">'test'</span> &amp;&amp; password == <span class="string">'123456'</span>) &#123;</span><br><span class="line">        ctx.body = &#123;</span><br><span class="line">            status: <span class="number">200</span>,</span><br><span class="line">            msg: <span class="string">'login succeed!'</span></span><br><span class="line">        &#125;;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        ctx.body = &#123;</span><br><span class="line">            status: <span class="number">1</span>,</span><br><span class="line">            msg: <span class="string">'login failed!'</span></span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = router;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>需要注意的是，<code>koa-body</code>不允许嵌套，即不允许层级调用，否则请求会没有响应（卡死），就像下面这句：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">router.post(<span class="string">'/login'</span>, KoaBody(), KoaBody(), ctx =&gt; &#123;</span><br><span class="line">   	ctx.body = <span class="string">'succeed!'</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>客户端发送请求后迟迟没有收到响应，检查发现第三个中间件函数根本就没有执行。</p>
+</blockquote>
+<h2 id="koa-body的可选配置项"><a href="#koa-body的可选配置项" class="headerlink" title="koa-body的可选配置项"></a>koa-body的可选配置项</h2><p>KoaBody()初始化时默认开启了<code>text/urlencoded/json</code>的解析，不开启<code>multipart</code>的解析。相关的配置可以通过传入一个选项进行配置，可选的配置项如下所示：</p>
+<ul>
+<li><code>patchNode</code> <strong>{Boolean}</strong> Patch request body to Node’s <code>ctx.req</code>, default <code>false</code></li>
+<li><code>patchKoa</code> <strong>{Boolean}</strong> Patch request body to Koa’s <code>ctx.request</code>, default <code>true</code></li>
+<li><code>jsonLimit</code> <strong>{String|Integer}</strong> The byte (if integer) limit of the JSON body, default <code>1mb</code></li>
+<li><code>formLimit</code> <strong>{String|Integer}</strong> The byte (if integer) limit of the form body, default <code>56kb</code></li>
+<li><code>textLimit</code> <strong>{String|Integer}</strong> The byte (if integer) limit of the text body, default <code>56kb</code></li>
+<li><code>encoding</code> <strong>{String}</strong> Sets encoding for incoming form fields, default <code>utf-8</code></li>
+<li><code>multipart</code> <strong>{Boolean}</strong> Parse multipart bodies, default <code>false</code></li>
+<li><code>urlencoded</code> <strong>{Boolean}</strong> Parse urlencoded bodies, default <code>true</code></li>
+<li><code>text</code> <strong>{Boolean}</strong> Parse text bodies, such as XML, default <code>true</code></li>
+<li><code>json</code> <strong>{Boolean}</strong> Parse JSON bodies, default <code>true</code></li>
+<li><code>jsonStrict</code> <strong>{Boolean}</strong> Toggles co-body strict mode; if set to true - only parses arrays or objects, default <code>true</code></li>
+<li><code>includeUnparsed</code> <strong>{Boolean}</strong> Toggles  co-body returnRawBody option; if set to true, for form encoded and JSON  requests the raw, unparsed request body will be attached to <code>ctx.request.body</code> using a <code>Symbol</code> (<a href="https://github.com/koajs/koa-body#a-note-about-unparsed-request-bodies" target="_blank" rel="noopener">see details</a>), default <code>false</code></li>
+<li><code>formidable</code> <strong>{Object}</strong> Options to pass to the formidable multipart parser</li>
+<li><code>onError</code> <strong>{Function}</strong> Custom error handle, if throw an error, you can customize the response - onError(error, context), default will throw</li>
+<li><code>strict</code> <strong>{Boolean}</strong> <strong><em>DEPRECATED</em></strong> If enabled, don’t parse GET, HEAD, DELETE requests, default <code>true</code></li>
+<li><code>parsedMethods</code> <strong>{String[]}</strong> Declares the HTTP methods where bodies will be parsed, default <code>[&#39;POST&#39;, &#39;PUT&#39;, &#39;PATCH&#39;]</code>. Replaces <code>strict</code> option.</li>
+</ul>
+<h1 id="静态页面"><a href="#静态页面" class="headerlink" title="静态页面"></a>静态页面</h1><blockquote>
+<p><a href="https://github.com/koajs/static" target="_blank" rel="noopener">koajs/static</a></p>
+</blockquote>
+<p>安装：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm i koa-static -S</span><br></pre></td></tr></table></figure>
+<p>使用：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 静态目录</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="keyword">const</span> KoaStatic = <span class="built_in">require</span>(<span class="string">'koa-static'</span>);</span><br><span class="line">app.use(KoaStatic(path.join(__dirname, <span class="string">'public'</span>)));</span><br></pre></td></tr></table></figure>
+<h1 id="其他中间件"><a href="#其他中间件" class="headerlink" title="其他中间件"></a>其他中间件</h1><h2 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h2><blockquote>
+<p><a href="https://github.com/koajs/logger" target="_blank" rel="noopener">koajs/logger</a></p>
+</blockquote>
+<p>安装：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm i koa-logger -S</span><br></pre></td></tr></table></figure>
+<p>使用：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 日志</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> KoaLogger = <span class="built_in">require</span>(<span class="string">'koa-logger'</span>);</span><br><span class="line">app.use(KoaLogger());</span><br></pre></td></tr></table></figure>
+<p>当有请求发送时，终端会输出一些请求信息：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">&lt;-- POST /adm/login</span><br><span class="line">--&gt; POST /adm/login <span class="number">200</span> <span class="number">14</span>ms <span class="number">34</span>b</span><br></pre></td></tr></table></figure>
+<h2 id="用户身份验证"><a href="#用户身份验证" class="headerlink" title="用户身份验证"></a>用户身份验证</h2><h3 id="基本验证：Basic-Auth"><a href="#基本验证：Basic-Auth" class="headerlink" title="基本验证：Basic Auth"></a>基本验证：Basic Auth</h3><blockquote>
+<p><a href="https://github.com/koajs/basic-auth" target="_blank" rel="noopener">koajs/basic-auth</a></p>
+</blockquote>
+<p>基本验证是什么？<a href="https://www.jianshu.com/p/4cd42f7359f4" target="_blank" rel="noopener">HTTP Authorization 之 Basic Auth</a></p>
+<p>通过写在HTTP头的<code>用户名:密码</code>的base64编码后的字符串进行验证的一种手段。安全性极低。</p>
+<h3 id="jwt验证：JSON-Web-Token"><a href="#jwt验证：JSON-Web-Token" class="headerlink" title="jwt验证：JSON Web Token"></a>jwt验证：JSON Web Token</h3><blockquote>
+<p><a href="https://github.com/koajs/jwt" target="_blank" rel="noopener">koajs/jwt</a></p>
+</blockquote>
+<p>JSON Web Token是什么？<a href="https://ninghao.net/blog/2834" target="_blank" rel="noopener">基于 Token 的身份验证：JSON Web Token</a></p>
+<p>通过加密、签名、指定JSON格式的方式指定一串密钥，当用户第一次登录时得到对应的口令（Token），之后每次请求都发送这一口令，表示用户已知晓服务端的口令，也就是值得信任。不需要涉及到数据库，能减少运算量和存储量（不需要额外存储session），但一旦对方拿到这个加密后的口令，比如登录一次之后，或者被抓包，那么都可以模拟这个口令发送请求。</p>
+<p>而且由于口令不与用户关联（也可以关联，但是那就不是JWT的特点），具有通用性，容易泄露，因此要求经常更新。</p>
+<p>有一定的加密手段，但一旦被破解或有内鬼泄露，那该加密手段就失效了。</p>
+<h3 id="passport-js验证"><a href="#passport-js验证" class="headerlink" title="passport.js验证"></a>passport.js验证</h3><blockquote>
+<p><a href="https://github.com/rkusa/koa-passport" target="_blank" rel="noopener">https://github.com/rkusa/koa-passport</a></p>
+<p><a href="http://www.passportjs.org/" target="_blank" rel="noopener">http://www.passportjs.org/</a></p>
+</blockquote>
+<p>基于password.js，提供了一串从session中获取用户信息、查询数据库进行验证的接口。</p>
+<h2 id="用户权限控制"><a href="#用户权限控制" class="headerlink" title="用户权限控制"></a>用户权限控制</h2><blockquote>
+<p>ACL, RBAC, ABAC 是什么？</p>
+<p>ACL/RBAC/ABAC都是用户权限控制的策略，区别在于指定的方式不同，具体可以参考以下三小节的内容（以下内容转载自：<a href="https://jeremyxu2010.github.io/2019/08/%E4%BD%BF%E7%94%A8casbin%E5%AE%8C%E6%88%90%E9%AA%8C%E8%AF%81%E6%8E%88%E6%9D%83/" target="_blank" rel="noopener">使用casbin完成验证授权</a>），ACL对每个用户指定权限，RBAC对一类用户指定，ABAC对具有某种属性的用户指定。<strong>用户权限控制首先需要给出权限列表，然后给用户指定列表中的权限，当一个用户想要执行某个权限下的操作时，首先将用户名、请求的权限输入系统进行查询，有权限返回<code>true</code>，无权限返回<code>false</code>。</strong></p>
+</blockquote>
+<h3 id="ACL"><a href="#ACL" class="headerlink" title="ACL"></a>ACL</h3><p><code>ACL</code>是<code>Access Control List</code>的缩写，称为访问控制列表. 定义了谁可以对某个数据进行何种操作. 关键数据模型有: 用户, 权限.</p>
+<p>ACL规则简单, 也带来一些问题: 资源的权限需要在用户间切换的成本极大; 用户数或资源的数量增长, 都会加剧规则维护成本;</p>
+<h4 id="典型应用"><a href="#典型应用" class="headerlink" title="典型应用"></a>典型应用</h4><ol>
+<li>文件系统</li>
+</ol>
+<p>文件系统的文件或文件夹定义某个账号(user)或某个群组(group)对文件(夹)的读(read)/写(write)/执行(execute)权限.</p>
+<ol>
+<li>网络访问</li>
+</ol>
+<p>防火墙: 服务器限制不允许指定机器访问其指定端口, 或允许特定指定服务器访问其指定几个端口.</p>
+<h3 id="RBAC"><a href="#RBAC" class="headerlink" title="RBAC"></a>RBAC</h3><p><code>RBAC</code>是<code>Role-based access control</code>的缩写, 称为 基于角色的访问控制. 核心数据模型有: 用户, 角色, 权限.</p>
+<p>用户具有角色, 而角色具有权限, 从而表达用户具有权限.</p>
+<p>由于有角色作为中间纽带, 当新增用户时, 只需要为用户赋予角色, 用户即获得角色所包含的所有权限.</p>
+<p><code>RBAC</code>存在多个扩展版本, <code>RBAC0</code>、<code>RBAC1</code>、<code>RBAC2</code>、<code>RBAC3</code>。这些版本的详细说明可以参数<a href="https://www.jianshu.com/p/b078abe9534f" target="_blank" rel="noopener">这里</a>。我们在实际项目中经常使用的是<code>RBAC1</code>，即带有角色继承概念的RBAC模型。</p>
+<h3 id="ABAC"><a href="#ABAC" class="headerlink" title="ABAC"></a>ABAC</h3><p><code>ABAC</code>是<code>Attribute-based access control</code>的缩写, 称为基于属性的访问控制.</p>
+<p>权限和资源当时的状态(属性)有关, 属性的值可以用于正向判断(符合某种条件则通过), 也可以用于反向判断(符合某种条件则拒绝):</p>
+<h4 id="典型应用-1"><a href="#典型应用-1" class="headerlink" title="典型应用"></a>典型应用</h4><ol>
+<li>论坛的评论权限, 当帖子是锁定状态时, 则不再允许继续评论;</li>
+<li>Github 私有仓库不允许其他人访问;</li>
+<li>发帖者可以编辑/删除评论(如果是RBAC, 会为发帖者定义一个角色, 但是每个帖子都要新增一条用户/发帖角色的记录);</li>
+<li>微信聊天消息超过2分钟则不再允许撤回;</li>
+<li>12306 只有实名认证后的账号才能购票;</li>
+<li>已过期的付费账号将不再允许使用付费功能;</li>
+</ol>
+<h3 id="koa-authz：基于Casbin实现的ACL-RBAC-ABAC控制"><a href="#koa-authz：基于Casbin实现的ACL-RBAC-ABAC控制" class="headerlink" title="koa-authz：基于Casbin实现的ACL/RBAC/ABAC控制"></a>koa-authz：基于Casbin实现的ACL/RBAC/ABAC控制</h3><blockquote>
+<p><a href="https://github.com/casbin/node-casbin" target="_blank" rel="noopener">casbin/node-casbin</a></p>
+<p><a href="https://github.com/node-casbin/koa-authz" target="_blank" rel="noopener">node-casbin/koa-authz</a></p>
+<p><a href="https://casbin.org/" target="_blank" rel="noopener">Casbin 官网首页</a></p>
+<p><a href="https://casbin.org/docs/en/syntax-for-models" target="_blank" rel="noopener">Casbin Model 语法说明</a></p>
+<p><a href="https://casbin.org/docs/en/tutorials" target="_blank" rel="noopener">Casbin Tutorials</a></p>
+</blockquote>
+<p><code>koa-authz</code>是基于<code>Node-Casbin</code>实现的权限控制中间件，主要控制这么一件事：<strong>xx用户</strong>是否具有对<strong>xx资源</strong>进行<strong>xx操作</strong>的权限。在<code>koa-authz</code>的描述语言里，就是<code>{subject, object, action}</code>，其中：</p>
+<ol>
+<li><code>subject</code>：已经登录了的用户名，xx用户；</li>
+<li><code>object</code>：网络资源的URL，如“dataset1/item1”，xx资源；</li>
+<li><code>action</code>：HTTP方法（GET/POST/PUT/DELETE…）或其他语义化方法（如 read-file, write-blog），xx操作。</li>
+</ol>
+<p>具体的使用参考<a href="https://github.com/node-casbin/koa-authz" target="_blank" rel="noopener">node-casbin/koa-authz</a>和<a href="https://casbin.org/docs/en/tutorials" target="_blank" rel="noopener">Casbin Tutorials</a>。</p>
+<h2 id="会话管理：session"><a href="#会话管理：session" class="headerlink" title="会话管理：session"></a>会话管理：session</h2><h3 id="koa-session的安装和使用"><a href="#koa-session的安装和使用" class="headerlink" title="koa-session的安装和使用"></a>koa-session的安装和使用</h3><blockquote>
+<p><a href="https://github.com/koajs/session" target="_blank" rel="noopener">koajs/session</a></p>
+</blockquote>
+<p>安装</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm i koa-session -S</span><br></pre></td></tr></table></figure>
+<p>基本使用。其中<code>app.keys</code>为必须字段，用于为cookies加密，除非在<code>koa-session</code>的配置项中把加密的关掉。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * session</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">app.keys = [<span class="string">'secret'</span>];</span><br><span class="line"><span class="keyword">const</span> KoaSession = <span class="built_in">require</span>(<span class="string">'koa-session'</span>);</span><br><span class="line">app.use(KoaSession(app));</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">router.get(<span class="string">'/'</span>, ctx =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> n = ctx.session.views || <span class="number">0</span>;</span><br><span class="line">    ctx.session.views = ++n;</span><br><span class="line">    ctx.body = <span class="string">`<span class="subst">$&#123;n&#125;</span> views`</span>;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>以上代码实现的是通过session存储某一网页的访问次数。（session存放在浏览器的cookie中）</p>
+<p>当浏览器向客户端发送请求时，会附带上cookie，添加了<code>koa-session</code>中间件后，可以通过<code>ctx.session</code>拿到存储在浏览器cookie中的session信息（这里称作<code>cookie-based sessions</code>），当对session其进行修改后，响应这个请求时会把修改后的session发送到浏览器，更新存放在浏览器的cookie数据。</p>
+<h3 id="koa-session的配置项"><a href="#koa-session的配置项" class="headerlink" title="koa-session的配置项"></a>koa-session的配置项</h3><p>可以通过如下形式为<code>koa-session</code>传入配置项：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> SessionConfig = &#123;&#125;;</span><br><span class="line">app.use(KoaSession(SessionConfig, app));</span><br></pre></td></tr></table></figure>
+<p>可选配置项有：</p>
+<ul>
+<li><code>key</code>: (string) 保存在cookie中的键名，默认为<code>koa.sess</code></li>
+<li><code>maxAge</code>: (number || ‘session’)，当为一个数字时，表示以毫秒计算的最大session有效时间。默认为<code>86400000</code>，1天；当为<code>&#39;session&#39;</code>字符串时，关闭会话或浏览器时，session会过期。</li>
+<li><code>autoCommit</code>: (boolean) 是否自动提交headers，默认为<code>true</code>。</li>
+<li><code>overwrite</code>: (boolean) 是否重写cookie，默认为<code>true</code>。</li>
+<li><code>httpOnly</code>: (boolean) 是否开启<code>httpOnly</code>，默认为<code>true</code>，带有<code>httpOnly</code>的Cookie不能通过非http方式来访问。</li>
+<li><code>signed</code>: (boolean) 是否使用<code>app.keys</code>进行签名，默认为<code>true</code>，会在cookie中存放一个<code>key.sig</code>的签名字段，<strong>主要目的是防止cookie被篡改</strong>。（测试了一下，如果不设置签名，将cookie用base64解码后改成另一个值，还能生效；如果设置了签名，如果发生了修改，那么修改的字段和之前的字段都无效了，会重新设置cookie。<strong>如果有人同时复制了数据和签名，那么还是可以篡改数据的，只是不能篡改成他想要的样子</strong>，签名的原理和<code>app.keys</code>的签名原理一至，底层的实现依赖<a href="https://github.com/crypto-utils/keygrip" target="_blank" rel="noopener">crypto-utils/keygrip</a>和<a href="https://github.com/pillarjs/cookies" target="_blank" rel="noopener">pillarjs/cookies</a>）。</li>
+<li><code>rolling</code>: (boolean) 强制在每个响应上设置会话标识符 cookie。到期重置为原来的maxAge，重置到期倒计时，默认为<code>false</code>。</li>
+<li><code>renew</code>: (boolean) 当session将要过期时是否更新它，默认为<code>false</code>。</li>
+<li><code>secure</code>: (boolean) 是否启用安全cookie，默认为<code>false</code>。</li>
+<li><code>sameSite</code>: (string) session cookie的<code>sameSite</code>选项，默认为<code>None</code>，将允许声明Cookie是否仅限于第一方或同一站点上下文。接受三个值：<code>Lax</code>：Cookies允许与顶级导航一起发送，并将与第三方网站发起的GET请求一起发送，这是浏览器的默认值；<code>Strict</code>：Cookies只会在第一方上下文中发送，不会与第三方网站发起的请求一起发送；<code>None</code>：Cookies将在所有上下文中发送，即允许跨域发送。使用<code>None</code>时，需要设置<code>Secure</code>。</li>
+</ul>
+<p>options中还包括一些其他的自定义配置项，如<code>encode/decode</code>，<code>externalKey</code>，<code>store</code>，<code>ContextStore</code>，<code>genid/prefix</code>等，详细的功能和配置方法可以查看<a href="https://github.com/koajs/session/blob/master/index.js" target="_blank" rel="noopener">koajs/session/index.js</a>。</p>
+]]></content>
+      <categories>
+        <category>Node.js</category>
+      </categories>
+      <tags>
+        <tag>Node.js</tag>
+        <tag>Koa.js</tag>
       </tags>
   </entry>
 </search>
