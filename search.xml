@@ -7083,4 +7083,71 @@ m^e\%N=c</script><p>其中，<script type="math/tex">m</script>是信息，<scri
         <tag>Koa.js</tag>
       </tags>
   </entry>
+  <entry>
+    <title>常用正则表达式记录</title>
+    <url>/2021/07/16/%E5%B8%B8%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AE%B0%E5%BD%95/</url>
+    <content><![CDATA[<h1 id="邮箱格式验证"><a href="#邮箱格式验证" class="headerlink" title="邮箱格式验证"></a>邮箱格式验证</h1><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">/^[\w.]*@[\w.]*\.[\w]*$/</span><br></pre></td></tr></table></figure>
+<p>核心在于验证<code>@</code>和<code>.</code>，接着就是使用<code>^</code>和<code>$</code>规定了开头结尾，使用<code>\w</code>匹配数字、字母、下划线（相等于<code>[A-Za-z0-9]</code>）。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">/^[\w.]*@[\w.]*\.[\w]*$/.test(<span class="string">'123@123.com'</span>)  <span class="comment">// true</span></span><br><span class="line">/^[\w.]*@[\w.]*\.[\w]*$/.test(<span class="string">'a.b.c@a.b.c.com'</span>)  <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>正则表达式</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>正则表达式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Ubuntu 18.04下Node.js使用手记</title>
+    <url>/2021/07/19/Ubuntu-18-04%E4%B8%8BNode-js%E4%BD%BF%E7%94%A8%E6%89%8B%E8%AE%B0/</url>
+    <content><![CDATA[<blockquote>
+<p>n: <a href="https://github.com/tj/n" target="_blank" rel="noopener">https://github.com/tj/n</a></p>
+<p>pm2: <a href="https://github.com/Unitech/pm2" target="_blank" rel="noopener">https://github.com/Unitech/pm2</a></p>
+</blockquote>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>使用<code>apt</code>安装：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install nodejs npm</span><br></pre></td></tr></table></figure>
+<p>发现版本有点老：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">node -v # v8.10.0</span><br><span class="line">npm -v  # 3.5.2</span><br></pre></td></tr></table></figure>
+<p>看到有人推荐<a href="https://github.com/tj/n" target="_blank" rel="noopener">n</a>，就去尝试使用了一下：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm i -g n</span><br><span class="line">n -V  # 7.3.0</span><br></pre></td></tr></table></figure>
+<p>安装好之后，可以使用以下命令管理<code>Node.js</code>:</p>
+<p><code>n lts</code> - 安装最新的长期支持版本</p>
+<p><code>n latest</code> - 安装最新版<code>Node.js</code></p>
+<p><code>n stable</code> - 安装最新的稳定版<code>Node.js</code></p>
+<p><code>n 12.14.0</code> - 安装指定版本<code>Node.js</code></p>
+<p>如果是第一次使用<code>n</code>安装<code>Node.js</code>，会把<code>node</code>命令安装到<code>/usr/local/bin/node</code>（原先安装在<code>/usr/bin/node</code>），此时在终端中使用<code>node -v</code>查看版本时，依旧是原来的版本，只需要重新打开终端或在当前终端执行：<code>PATH=&quot;$PATH&quot;</code>，即可使用由<code>n</code>安装的<code>Node.js</code>。</p>
+<p><code>n</code> - 已安装的nodejs列表，可以在此替换</p>
+<p><code>n rm 0.9.4 v0.10.0</code> - 删除缓存的的指定版本的<code>Node.js</code></p>
+<p><code>n prune</code> - 删掉除当前版本之外的缓存</p>
+<p><code>n uninstall</code> - 删除当前版本的<code>Node.js</code>，当想要恢复使用系统安装的<code>Node.js</code>或不再使用<code>node</code>和<code>npm</code>时使用</p>
+<h1 id="后台运行"><a href="#后台运行" class="headerlink" title="后台运行"></a>后台运行</h1><p>使用<a href="https://github.com/Unitech/pm2" target="_blank" rel="noopener">pm2</a>将运行在命令行的<code>Node.js</code>运行到后台</p>
+<p>安装：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm i -g pm2</span><br><span class="line">yarn global add pm2</span><br></pre></td></tr></table></figure>
+<p>运行一个js（也可以运行一个<code>.sh</code>，python文件等）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pm2 start app.js --name app_name</span><br></pre></td></tr></table></figure>
+<p>进程管理</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pm2 restart app_name</span><br><span class="line">pm2 reload app_name</span><br><span class="line">pm2 stop app_name</span><br><span class="line">pm2 delete app_name</span><br></pre></td></tr></table></figure>
+<p><code>app_name</code>除了运行<code>js</code>文件时指定，还可以替换为：</p>
+<ul>
+<li><code>all</code> 所有进程</li>
+<li><code>id</code> 进程在列表中的序号，从1开始，<strong>不是PID！</strong></li>
+</ul>
+<p>状态查看：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pm2 [list|ls|status]</span><br></pre></td></tr></table></figure>
+<p>查看日志：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">pm2 logs --line 200  ## 行数限制</span><br></pre></td></tr></table></figure>
+<p>更多配置请参考：</p>
+<blockquote>
+<p><a href="https://pm2.keymetrics.io/docs/usage/quick-start/" target="_blank" rel="noopener">https://pm2.keymetrics.io/docs/usage/quick-start/</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Node.js</category>
+      </categories>
+      <tags>
+        <tag>Node.js</tag>
+        <tag>Ubuntu</tag>
+      </tags>
+  </entry>
 </search>
